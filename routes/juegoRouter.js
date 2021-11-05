@@ -1,31 +1,50 @@
 const express = require("express");
 const juegoRouter = express.Router();
 const Juego = require("../models/juegoModel");
-const app = express();
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
-//ruta para coger los datos de juego
-juegoRouter 
-.route("/")
 
-.post( async (req, res) => {
-    let {name} = req.body;
-  
-    let juego = {
-     name
+juegoRouter.post("/", async (req, res) => {
+  try {
+    const { nombre } = req.body;
+
+    if (!nombre) {
+      //añadir || otros campos
+      return res.status(403).json({
+        success: false,
+        message: "No has escrito nada",
+      });
     }
-    let juegoModel = new Juego(juego);
-    await juegoModel.save();
-    res.send(juegoModel);
- })
-    
-.get((req, res) =>{
-Juego.find({}, (err,juegos) =>{
-    if (err) {
-        res.status(400).send (err.response.data);
-    }
-    res.json(juegos);
+    const juego = new Juego({
+      nombre
+    });
+    const newJuego = await juego.save();
+    return res.status(201).json({
+      success: true,
+      juego: newJuego,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(400).json({
+      success: false,
+      message: err.message || err._message,
+    });
+  }
 });
-})
+
+juegoRouter.get("/", async (req, res) => {
+  try {
+    const juegos = await Juego.find({});
+    return res.json({
+      success: true,
+      juegos,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(400).json({
+      success: false,
+      message: err.message,
+    });
+  }
+});
+
 module.exports = juegoRouter;

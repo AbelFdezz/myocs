@@ -29,7 +29,7 @@ app.listen(PORT, () => {
   console.log(`funcionando en el puerto ${PORT}!`);
 });
 
-app.use("/data/juegos", require("./routes/juegoRouter"));
+app.use("/data/juegos", require("./routes/juegoRouter")); // cambiar esto por variable? const  juegosRouter = enlace
 app.use("/data/usuarios", require("./routes/usuarioRouter"));
 app.use("/data/personajes", require("./routes/personajeRouter"));
 app.use("/data/trasfondos", require("./routes/trasfondoRouter"));
