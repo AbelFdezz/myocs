@@ -5,17 +5,16 @@ const Trasfondo = require("../models/trasfondoModel");
 
 trasfondoRouter.post("/", async (req, res) => {
   try {
-    const { cuerpo } = req.body;
+    const { cuerpo, personaje, otrosPersonajes } = req.body;
 
-    if (!cuerpo) {
-      //añadir || otros campos
+    if (!cuerpo|| !personaje) {
       return res.status(403).json({
         success: false,
-        message: "No has escrito nada",
+        message: "Hay campos sin completar",
       });
     }
     const trasfondo = new Trasfondo({
-      cuerpo,
+      cuerpo, personaje, otrosPersonajes
     });
     const newTrasfondo = await trasfondo.save();
     return res.status(201).json({
