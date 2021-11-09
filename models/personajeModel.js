@@ -3,13 +3,13 @@ const Schema = mongoose.Schema;
 
 const personajeSchema = new Schema({
   nombre: { type: String, required: true },
-  juego: {type: mongoose.Types.ObjectId, ref: "Juego" }, 
-    detallesJuego:{type: String},
+  juego: { type: mongoose.Types.ObjectId, ref: "Juego" },
+  detallesJuego: { type: String },
   estado: { type: String },
   autor: { type: String },
-  propietario: { type: mongoose.Types.ObjectId, ref: "Usuario"}, 
+  propietario: { type: mongoose.Types.ObjectId, ref: "Usuario" },
   imagen: { type: String },
-  trasfondo: {type: mongoose.Types.ObjectId, ref: "Trasfondo" },
+  trasfondo: { type: mongoose.Types.ObjectId, ref: "Trasfondo" },
   edad: { type: Number },
   genero: { type: String },
   lugarNacimiento: { type: String },
@@ -53,7 +53,7 @@ const personajeSchema = new Schema({
   adaptacionPerdidas: { type: Number },
   motivaciones: { type: String },
   miedos: { type: String },
-  queLeHaceFeliz: { type: String },   //50
+  queLeHaceFeliz: { type: String }, //50
   nivelEmpatia: { type: Number },
   religion: { type: String },
   creenciasEspirituales: { type: String },

@@ -1,6 +1,7 @@
 const express = require("express");
 const usuarioRouter = express.Router();
 const Usuario = require("../models/usuarioModel");
+const Personaje = require("../models/personajeModel");
 
 //crear usuario
 usuarioRouter.post("/", async (req, res) => {
@@ -60,11 +61,13 @@ usuarioRouter.post("/", async (req, res) => {
 //información de usuarios ya creados
 usuarioRouter.get("/", async (req, res) => {
   try {
-    const usuarios = await Usuario.find({});
+    const usuarios = await Usuario.find();
+    console.log(usuarios[0]._id);
     return res.json({
       success: true,
       usuarios,
     });
+    console.log(personajes);
   } catch (err) {
     console.log(err);
     return res.status(400).json({
@@ -76,6 +79,7 @@ usuarioRouter.get("/", async (req, res) => {
 
 //modificar un usuario
 usuarioRouter.put("/find/:id/update", async (req, res) => {
+
   try {
     const { id } = req.params;
     let {
@@ -90,32 +94,11 @@ usuarioRouter.put("/find/:id/update", async (req, res) => {
       personajes,
     } = req.body;
     const usuario = await Usuario.findById(id);
-    if (nick) {
-      usuario.nick = nick;
-    }
-    if (password) {
-      usuario.pasword = password;
-    }
-    if (correo) {
-      usuario.correo = correo;
-    }
-    if (nombreReal) {
-      usuario.nombreReal = nombreReal;
-    }
-    if (edad) {
-      usuario.edad = edad;
-    }
-    if (pronombres) {
-      usuario.pronombres = pronombres;
-    }
-    if (sobreMi) {
-      usuario.sobreMi = sobreMi;
-    }
-    if (enlaces) {
-      usuario.enlaces = enlaces;
-    }
-    if (personajes) {
-      usuario.personajes = personajes;
+
+    for (const key in req.body) {
+      if (req.body[key]) {
+        usuario[key] = req.body[key];
+      }
     }
 
     const usuarioActualizado = await usuario.save();
@@ -137,7 +120,7 @@ usuarioRouter.put("/find/:id/update", async (req, res) => {
 usuarioRouter.delete("/find/:id/delete", async (req, res) => {
   try {
     const { id } = req.params;
-  let usuario = await Usuario.findByIdAndDelete(id);
+    let usuario = await Usuario.findByIdAndDelete(id);
     return res.send({
       sucess: true,
       message: `el usuario ${usuario.nick}  ha sido borrado con éxito`,
@@ -150,6 +133,4 @@ usuarioRouter.delete("/find/:id/delete", async (req, res) => {
     });
   }
 });
-
-
 module.exports = usuarioRouter;

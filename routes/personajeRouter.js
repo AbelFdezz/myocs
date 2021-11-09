@@ -1,7 +1,9 @@
 const express = require("express");
 const personajeRouter = express.Router();
 const Personaje = require("../models/personajeModel");
-
+const Juego = require("../models/juegoModel");
+const Propietario = require("../models/usuarioModel");
+const Trasfondo = require("../models/trasfondoModel");
 
 //crear personaje
 personajeRouter.post("/", async (req, res) => {
@@ -144,6 +146,10 @@ personajeRouter.post("/", async (req, res) => {
       enemigos,
     });
     const newPersonaje = await personaje.save();
+
+
+
+
     return res.status(201).json({
       success: true,
       personaje: newPersonaje,
@@ -155,12 +161,18 @@ personajeRouter.post("/", async (req, res) => {
       message: err.message || err._message,
     });
   }
+
 });
 
 //información de personajes creados
 personajeRouter.get("/", async (req, res) => {
+  console.log(usuarios[0]._id)
   try {
-    const personajes = await Personaje.find({});
+    const personajes = await Personaje.find()
+      .populate("juego", "nombre")
+      .populate("propietario", "nick")
+      .populate("trasfondo");
+
     return res.json({
       success: true,
       personajes,
@@ -194,6 +206,8 @@ personajeRouter.delete("/find/:id/delete", async (req, res) => {
 
 //modificar personaje
 personajeRouter.put("/find/:id/update", async (req, res) => {
+
+  //if (usuarios[0]._id)
   try {
     const { id } = req.params;
     let {
