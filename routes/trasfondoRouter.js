@@ -20,6 +20,14 @@ trasfondoRouter.post("/", async (req, res) => {
       otrosPersonajes,
     });
     const newTrasfondo = await trasfondo.save();
+
+    let trasfondosArray = await Personaje.findById(otrosPersonajes);
+    //console.log(otrosPersonajes);
+    console.log(trasfondosArray);
+
+    trasfondosArray.otrosTrasfondos.push(newTrasfondo._id);
+    await trasfondosArray.save();
+
     return res.status(201).json({
       success: true,
       trasfondo: newTrasfondo,
@@ -83,6 +91,7 @@ trasfondoRouter.put("/find/:id/update", async (req, res) => {
         trasfondo[key] = req.body[key];
       }
     }
+
     /*
     if (cuerpo) {
       trasfondo.cuerpo = cuerpo;

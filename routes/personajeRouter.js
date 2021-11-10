@@ -5,6 +5,7 @@ const Juego = require("../models/juegoModel");
 const Propietario = require("../models/usuarioModel");
 const Trasfondo = require("../models/trasfondoModel");
 
+
 //crear personaje
 personajeRouter.post("/", async (req, res) => {
   try {
@@ -17,6 +18,7 @@ personajeRouter.post("/", async (req, res) => {
       propietario,
       imagen,
       trasfondo,
+      otrosTrasfondos,
       edad,
       genero,
       lugarNacimiento,
@@ -89,6 +91,7 @@ personajeRouter.post("/", async (req, res) => {
       propietario,
       imagen,
       trasfondo,
+      otrosTrasfondos,
       edad,
       genero,
       lugarNacimiento,
@@ -147,7 +150,11 @@ personajeRouter.post("/", async (req, res) => {
     });
     const newPersonaje = await personaje.save();
 
+    let personajeArray = await Propietario.findById(propietario);
 
+   console.log(personajeArray)
+    personajeArray.personajes.push(newPersonaje._id);
+    await personajeArray.save();
 
 
     return res.status(201).json({
@@ -166,7 +173,7 @@ personajeRouter.post("/", async (req, res) => {
 
 //información de personajes creados
 personajeRouter.get("/", async (req, res) => {
-  console.log(usuarios[0]._id)
+
   try {
     const personajes = await Personaje.find()
       .populate("juego", "nombre")

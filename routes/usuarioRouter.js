@@ -62,12 +62,12 @@ usuarioRouter.post("/", async (req, res) => {
 usuarioRouter.get("/", async (req, res) => {
   try {
     const usuarios = await Usuario.find();
-    console.log(usuarios[0]._id);
+
     return res.json({
       success: true,
       usuarios,
     });
-    console.log(personajes);
+
   } catch (err) {
     console.log(err);
     return res.status(400).json({

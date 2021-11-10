@@ -33,6 +33,7 @@ app.use("/data/juegos", require("./routes/juegoRouter")); // cambiar esto por va
 app.use("/data/usuarios", require("./routes/usuarioRouter"));
 app.use("/data/personajes", require("./routes/personajeRouter"));
 app.use("/data/trasfondos", require("./routes/trasfondoRouter"));
+app.use("/data/registro", require("./routes/loginRouter"));
 
 
 

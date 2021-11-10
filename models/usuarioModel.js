@@ -10,7 +10,7 @@ const usuarioSchema = new Schema({
  pronombres:{ type: String},
  sobreMi:{ type: String},
 enlaces:{ type: String},
-personajes:{ type: Array}
+personajes :[{ type: mongoose.Types.ObjectId, ref: "Personaje"}]
 
 })
 module.exports =Usuario = mongoose.model("Usuario", usuarioSchema);
