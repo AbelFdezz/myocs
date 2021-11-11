@@ -175,10 +175,9 @@ personajeRouter.post("/", async (req, res) => {
 personajeRouter.get("/", async (req, res) => {
 
   try {
-    const personajes = await Personaje.find()
-      .populate("juego", "nombre")
+    const personajes = await Personaje.find().populate("juego", "nombre")
       .populate("propietario", "nick")
-      .populate("trasfondo");
+      .populate("trasfondo").populate("otrosTrasfondos", "titulo");
 
     return res.json({
       success: true,

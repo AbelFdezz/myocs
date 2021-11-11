@@ -5,16 +5,19 @@ const Personaje = require("../models/personajeModel");
 
 //crear un trasfondo
 trasfondoRouter.post("/", async (req, res) => {
+ // console.log(req.body)
+  //return
   try {
-    const { cuerpo, personaje, otrosPersonajes } = req.body;
+    const { titulo, cuerpo, personaje, otrosPersonajes } = req.body;
 
-    if (!cuerpo || !personaje) {
+    if (!titulo || !cuerpo || !personaje) {
       return res.status(403).json({
         success: false,
         message: "Hay campos sin completar",
       });
     }
     const trasfondo = new Trasfondo({
+      titulo,
       cuerpo,
       personaje,
       otrosPersonajes,
@@ -22,11 +25,12 @@ trasfondoRouter.post("/", async (req, res) => {
     const newTrasfondo = await trasfondo.save();
 
     let trasfondosArray = await Personaje.findById(otrosPersonajes);
-    //console.log(otrosPersonajes);
-    console.log(trasfondosArray);
-
     trasfondosArray.otrosTrasfondos.push(newTrasfondo._id);
     await trasfondosArray.save();
+
+    let trasfondosPropios = await Personaje.findById(personaje);
+    trasfondosPropios.trasfondo.push(newTrasfondo._id);
+    await trasfondosPropios.save();
 
     return res.status(201).json({
       success: true,
@@ -66,6 +70,22 @@ trasfondoRouter.delete("/find/:id/delete", async (req, res) => {
   try {
     const { id } = req.params;
     let trasfondo = await Trasfondo.findByIdAndDelete(id);
+
+    
+    let trasfondoArray = await Personaje.findById(id);
+    trasfondoArray.otrosTrasfondos.remove(id);
+await trasfondoArray.save();
+
+  
+    let otrosArray = await Personaje.findById(id);
+   otrosArray.trasfondo.remove(id);
+   await otrosArray.save();
+
+
+
+    /*
+    trasfondosArray.otrosTrasfondos.delete(newTrasfondo._id);
+    */
     return res.send({
       sucess: true,
       message: `el trasfondo ha sido borrado con éxito`,
@@ -83,7 +103,7 @@ trasfondoRouter.delete("/find/:id/delete", async (req, res) => {
 trasfondoRouter.put("/find/:id/update", async (req, res) => {
   try {
     const { id } = req.params;
-    let { cuerpo, personaje, otrosPersonajes } = req.body;
+    let { titulo, cuerpo, personaje, otrosPersonajes } = req.body;
     const trasfondo = await Trasfondo.findById(id);
 
     for (const key in req.body) {
@@ -92,17 +112,6 @@ trasfondoRouter.put("/find/:id/update", async (req, res) => {
       }
     }
 
-    /*
-    if (cuerpo) {
-      trasfondo.cuerpo = cuerpo;
-    }
-    if (personaje) {
-      trasfondo.personaje = personaje;
-    }
-    if (otrosPersonajes) {
-      trasfondo.otrosPersonajes = otrosPersonajes;
-    }
-*/
     const trasfondoActualizado = await trasfondo.save();
 
     return res.send({
