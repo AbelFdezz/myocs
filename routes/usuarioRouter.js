@@ -2,9 +2,12 @@ const express = require("express");
 const usuarioRouter = express.Router();
 const Usuario = require("../models/usuarioModel");
 const Personaje = require("../models/personajeModel");
+const bcrypt = require("bcrypt");
+
+
 
 //crear usuario
-usuarioRouter.post("/", async (req, res) => {
+usuarioRouter.post("/signup", async (req, res) => {
   try {
     const {
       nick,
@@ -33,9 +36,28 @@ usuarioRouter.post("/", async (req, res) => {
         message: "Falta información. Revise los datos.",
       });
     }
+
+    const foundUser = await Usuario.findOne({ correo });
+    if (foundUser) {
+      return res.status(403).json({
+        sucess: false,
+        message: "este correo ya existe",
+      });
+    }
+    if (password.length < 6) {
+      return res.status(403).json({
+        sucess: false,
+        message: "La contraseña debe tener un mínimo 6 caracteres",
+      });
+    }
+   
+
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(password, salt);
+
     const usuario = new Usuario({
       nick,
-      password,
+      password: hash,
       correo,
       nombreReal,
       edad,
