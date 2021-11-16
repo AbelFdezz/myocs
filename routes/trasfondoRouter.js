@@ -1,11 +1,13 @@
+const {checkToken} = require("../middlewares"); 
 const express = require("express");
 const trasfondoRouter = express.Router();
 const Trasfondo = require("../models/trasfondoModel");
 const Personaje = require("../models/personajeModel");
+const Propietario = require("../models/usuarioModel");
 
 //crear un trasfondo
-trasfondoRouter.post("/", async (req, res) => {
- // console.log(req.body)
+trasfondoRouter.post("/", checkToken, async (req, res) => {
+
   //return
   try {
     const { titulo, cuerpo, personaje, otrosPersonajes } = req.body;
@@ -25,6 +27,7 @@ trasfondoRouter.post("/", async (req, res) => {
     const newTrasfondo = await trasfondo.save();
 
     let trasfondosArray = await Personaje.findById(otrosPersonajes);
+
     trasfondosArray.otrosTrasfondos.push(newTrasfondo._id);
     await trasfondosArray.save();
 
@@ -66,26 +69,41 @@ trasfondoRouter.get("/", async (req, res) => {
 });
 
 //borrar un trasfondo
-trasfondoRouter.delete("/find/:id/delete", async (req, res) => {
+trasfondoRouter.delete("/find/:id/delete", checkToken, async (req, res) => {
   try {
     const { id } = req.params;
-    let trasfondo = await Trasfondo.findByIdAndDelete(id);
+let trasfondoBuscado = await Trasfondo.findById(id);
 
+if (!trasfondoBuscado) {
+  return res.status(400).json({
+    success: false,
+    message: "El trasfondo no existe",
+  });
+}
+
+let personajeBuscado = await Personaje.findById(trasfondoBuscado.personaje);
+console.log(personajeBuscado)
+
+let index = personajeBuscado.trasfondo.indexOf(id);
+    if (index > -1) {
+      personajeBuscado.trasfondo.splice(index, 1);
+     await personajeBuscado.save();
+    }
+
+
+await trasfondoBuscado.deleteOne();
+/*
+    let trasfondo = await Trasfondo.findByIdAndDelete(id);
     
     let trasfondoArray = await Personaje.findById(id);
-    trasfondoArray.otrosTrasfondos.remove(id);
+    trasfondoArray.otrosTrasfondos.deleteOne(id);
 await trasfondoArray.save();
 
-  
     let otrosArray = await Personaje.findById(id);
-   otrosArray.trasfondo.remove(id);
+   otrosArray.trasfondo.deleteOne(id);
    await otrosArray.save();
 
-
-
-    /*
-    trasfondosArray.otrosTrasfondos.delete(newTrasfondo._id);
-    */
+*/
     return res.send({
       sucess: true,
       message: `el trasfondo ha sido borrado con éxito`,
@@ -100,7 +118,7 @@ await trasfondoArray.save();
 });
 
 //modificar un trasfondo
-trasfondoRouter.put("/find/:id/update", async (req, res) => {
+trasfondoRouter.put("/find/:id/update", checkToken, async (req, res) => {
   try {
     const { id } = req.params;
     let { titulo, cuerpo, personaje, otrosPersonajes } = req.body;

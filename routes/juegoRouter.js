@@ -1,9 +1,10 @@
 const express = require("express");
+const { checkToken } = require("../middlewares");
 const juegoRouter = express.Router();
 const Juego = require("../models/juegoModel");
 
 //nuevo juego
-juegoRouter.post("/", async (req, res) => {
+juegoRouter.post("/", checkToken, async (req, res) => {
   try {
     const { nombre } = req.body;
 
@@ -48,7 +49,7 @@ juegoRouter.get("/", async (req, res) => {
 });
 
 //borrar juegos
-juegoRouter.delete("/find/:id/delete", async (req, res) => {
+juegoRouter.delete("/find/:id/delete", checkToken, async (req, res) => {
   try {
     const { id } = req.params;
     let juego = await Juego.findByIdAndDelete(id);
@@ -66,7 +67,7 @@ juegoRouter.delete("/find/:id/delete", async (req, res) => {
 });
 
 //modificar juegos
-juegoRouter.put("/find/:id/update", async (req, res) => {
+juegoRouter.put("/find/:id/update", checkToken, async (req, res) => {
   try {
     const { id } = req.params;
     let { nombre } = req.body;

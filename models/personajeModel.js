@@ -13,6 +13,7 @@ const personajeSchema = new Schema({
   otrosTrasfondos:[{  type: mongoose.Types.ObjectId, ref: "Trasfondo" }],    //historias en las que aparece!
   edad: { type: Number },
   genero: { type: String },
+  idiomas: { type: String },
   lugarNacimiento: { type: String },
   lugarResidencia: { type: String }, //10
   peso: { type: String },
