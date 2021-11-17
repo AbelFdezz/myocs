@@ -1,0 +1,29 @@
+{
+  "name": "myocs",
+  "version": "1.0.0",
+  "description": "https://www.myocs.com       ||       http://trasfondos.com/",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "server": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AbelFdezz/myocs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AbelFdezz/myocs/issues"
+  },
+  "homepage": "https://github.com/AbelFdezz/myocs#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.0.12"
+  },
+  "keywords": []
+}

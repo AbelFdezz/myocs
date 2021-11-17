@@ -1,126 +1,90 @@
-# Proyecto  "Transfondos" [MyOC (Original Character)]
-                  https://www.myocs.com       ||       http://trasfondos.com/
+# PROPÓSITO Y FUNCIONALIDADES DE LA WEB:
 
-# CONCEPTO PRINCIPAL
+Una web para compartir perfiles e historias de personajes, enfocada a personas que juegan a rol, o que escriben en general. Es común que los jugadores hagan sus perfiles en Google drive o sitios similares, o incluso que los almacenen en carpetas perdidas de sus equipos, y se queden pedidos sin que nadie los lea. Ya hay webs con un montón de servicios, incluso para jugar, pero ninguna se centra en la redacción de personajes y trasfondos. Aquí podrán dar rienda suelta a su imaginación.
 
-- Una web para compartir historias sobre personajes (enfocada a personas que juegan a rol o que escriben en general). Es común que los jugadores hagan sus perfiles en google drive o sitios similares, y se queden pedidos sin que nadie los lea. Ya hay webs para inlcuso jugar, con un montón de servicios, pero ninguna se centra en los personajes o en las historias.  
+## FUNCIONALIDADES DE LA WEB:
 
-## IDEAS
+## Perfíl de usuario :
 
-- ¿La web funcionará con invitación? (empezar por 5 invitaciones por persona)
-- Hacerla lo más inclusiva y accesible posible.
+### Obligatorio:
 
-- Hacer que todo el contenido que se haga sea descargable en PDF o DOC/RTF.
+- Solo el nombre de usuario, correo y contraseña. El resto de información será opcional. Aquí venimos a vivir la vida de nuestros pesonajes, el resto no es esencial.
 
-- Permitir añadir texto alternativo a todas las imágenes.
+### Datos opcionales:
 
-- Opción o Botón para reportar con facilidad cualquier tipo de abuso..
+Siempre debería existir la opción de mostrarnos al mundo, y aquí se podrá dar información sobre nosotros, e incluso enlaces a otras plataformas / redes sociales.
 
-- Barra de búsqueda con filtros (por categorías, etiquetas, nombres, usuarios).
-
-# SECCIONES DE LA WEB
-
-## Perfíl de usuario  (el perfil toma una importancia más que notable en este proyecto)
-
-## Obligatorio:
-  - Solo el nombre de usuario.
-
-## Datos opcionales:
 - Nombre (real)
 - Foto (con créditos)
 - Edad
 - Pronombres
 - Sobre mí
 - Contacto (correo personal, redes sociales, mensaje directo, web, linktree, etc)
---- 
-- ¿ Añadir tus estadísticas de escritura (has escrito X personajes, has escrito en X categorías) públicas, privadas o para colegas.
 
-- Colegas - con opción de mostrarlos públicos, privados o para colegas.
+## CREACIÓN DE PERSONAJE
+El eje pricipal de esta página son las historias y los personajes. A través de un formulario extensísimo se podrá dar forma a vuestras creaciones.
 
-- Vista rápida de tus personajes. ¿con opción de mostrarlos públicos, privados o para colegas?
+- Nombre
+- Juego al que pertenecerá
+- Estado (“jugando a”, “murió en”, “va a jugar en” y más opciones de ese estilo)
+- Autoría
+- Imagen
+- TRASFONDO
+- FORMULARIO
 
-- Bandeja entrada de mensajes privados (opción de recibir de cualquiera, solo de colegas o de nadie)
-¿Con cierto grado de personalización? (colores, banner)
+### El trasfondo:
 
-# Mis OCs / Trasfondos / Personajes
-- Sección donde aparece cada personaje
-- Organizar las historias por nombre de personaje o por categoría
-- Elegir si quieres que tus personajes sean públicos (cualquiera en la web puede verlos), privados (solo tú puedes verlo) o solo para colegas (aquellos a los que hayas agregado como colega)
-- Elegir si admites comentarios en cada personaje y de quién (públicos o solo colegas) y en cada entrada y de quién (públicos o solo colegas)
-- Con posibilidad de enviar como enlace permanente a personas que no estén registradas?
-Todas las opciones posibles de cualquier procesador de texto
+Será la sección donde desarrollar la historia del personaje. De momento no habrá opción de agregar amigos, pero sí estará disponible la opción de mencionar y tagear a los personajes  que aparezcan en el trasfondo de tu personaje, creando así una red de personajes que jueguen, vayan a jugar o que hayan jugado juntos.  El propósito es hacer que se relacionen nuestros personajes, no nosotros.
 
-# Recursos (externalizar utilidades??????)
-- Para recomendar/enlazar a tanto recursos gratuitos (creación de avatares, creación de mapas, páginas de nombres aleatorios) como artistas del mundillo (ilustradores, artesanos) - con posibilidad de filtrar por países, temas, gratis/no gratis.
+### El formulario:
 
-- Con opción de recomendar a quien quieras o incluso a ti mismo (se enviaría una solicitud que tendría que procesarse manualmente para comprobar que no están enviando spam de porno por ej)
-- ¿Un foro?? para comentar y hacer recomendaciones (en fases más avanzadas de la web en la que haya más tráfico de personas)
-- Recursos y consejos para creación de personajes (por ej: 100 preguntas que hacerte sobre tu pj) y reglas básicas de escritura (rayas de diálogo, cuándo usar cursivas)
+Será el contenedor de información principal a la hora de crear un personaje.Tendrá multitud de opciones a rellenar para detallar todo lo posible su personalidad. Con el tiepmo el formulario podría ir creciendo, ofreciendo más posibilidades, pero nunca decreciendo. Salvo trasfondo, y nombre, el resto de datos son totalmente opcionales. Cada uno es libre de dar forma a sus personajes como le venga en gana.
+
+# Recursos
+
+Dedicaré una página con enlaces a herramientas externas de utilidad, como creación de avatares, creación de mapas, páginas de nombres aleatorios, etc) y a artistas del mundillo (ilustradores, artesanos). A medida que reciba recomendaciones iré poniendo más enlaces de interés, o incluso desarrollando mis propias herramientas de este tipo.
 
 # "Sobre la página” o "sobre nosotros"
-Concepto de la web y buzón de sugerencias + formulario de contacto + informar de un problema y esas cosas
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Apartado en el que se explicará el concepto de la web, con un botón de reportar incidencias, un  buzón de sugerencias y un correo de  contacto 
 
-# Hojas de personaje:
+---
+---
+---
 
-## Obligatorios:
+# BACKEND:
 
-- NOMBRE
-- CATEGORÍAS: Para organizar los personajes según el juego que estés jugando o el libro que estés escribiendo (ejemplo: Dungeons and Dragons, Dune, Fate).  (select con tipos de juegos???)
-- Cuando creas una categoría puedes elegir si hacerla pública (todo el mundo podrá elegirla también), privada (solo tú podrás elegirla) o solo para colegas (aquellos a los que hayas agregado como colega podrán elegirla) 
-- ESTADO: vivo | muerto | es complicado | en mitad de su aventura
-- AUTORÍA: lo he escrito yo | lo ha escrito ______
-## Opcionales:
-- IMAGEN: Con espacio para créditos al autor de la imagen y un avatar predeterminado de varios colores
-- BREVE DESCRIPCIÓN: En pocas palabras (máx 100 palabras)
-- ETIQUETAS: Para luego poder hacer búsqueda de etiquetas
-+DATOS: Añade datos rápidos para tenerlos de un vistazo:
-(Edad,
-Género,
-Lugar de nacimiento,
-Lugar de residencia,
-Clase social,
-Descripción física,
-Aficiones,
-Creencias o religión,
-Manías o tics,
-Estudios,
-Trabajo,
-Enfermedades o alergias,
-Minusvalías,
-Mascotas o monturas,
-Mayor defecto,
-Mayor virtud,
-Mayor secreto,
-Metas a corto plazo,
-Metas a largo plazo,
-Lo que más le importa en el mundo.)
 
-# PESTAÑA PRINCIPAL: ENTRADAS o tablón
-- Donde se escriben las historias. del pesonaje
-- ¿Con opción a mostrar primero nuevas o primero viejas?
-Mostrar de forma similar a entradas en un blog (título + breve descripción o principio de la entrada)
+# Dependencias en uso:
 
-# PESTAÑA Nº 2: ÁRBOL GENEALÓGICO // ÁRBOL DE RELACIONES (uff)
-- Mostrar claramente quién es el protagonista 
-- Con imágenes/avatares predeterminados que se pueden cambiar
-- Con marcos de colores alrededor de las imágenes para especificar ciertos datos. Estos colores deberían poder cambiarse y crear una pequeña leyenda personalizada sobre qué significa cada color
-- Con posibilidad de enlazar a otros perfiles de personajes
-- Con posibilidad de enlazar a cada personaje de otras hostorias que aparece 
-- Con relaciones diferenciadas entre familia (ej flechas de línea continua) y conocidos, amigos, compañeros de trabajo (ej flechas de línea discontinua, de puntos, etc)
-- Con posibilidad de añadir el tipo de relación (quizás con un icono/emoji, sangre para familia, rayo cuando te llevas mal, corazón para relaciones románticas)
-- Poder cambiar el fondo?? 
-- Con posibilidad de elegir si el árbol es público, privado o para colegas
+## Encriptación
+"bcrypt": "^5.0.1",
 
-## PESTAÑA Nº 3: NOTAS
-- Para incluir ideas rápidas sobre el personaje
+## Ocultar credenciales
+ "dotenv": "^10.0.0",
 
-## PESTAÑA Nº 4 HILO MUSICAL    
-- Posibilidad de hacer una lista (escrita) o enlazar a Spotify, Youtube
-- ¿Podría ponerse un reproductor de listas en la web para escuchar mientras lo leen o lo escriben?
+## Estructura de la aplicación
+"express": "^4.17.1",
 
-## PESTAÑA Nº 5: +FOTOS
-Con posibilidad de hacer subcarpetas (ej: mapas, marcas en la piel/tatuajes, mascotas)
+## Creación del token
+ "jsonwebtoken": "^8.5.1",
 
+## Librería utilizada
+"mongoose": "^6.0.12"
+
+# Instrucciones de instalación
+## -Escribe "npm install" para instalar todas las dependencias
+
+## - "npm run server" para iniciar el servidor
+## - Crea cuenta en MongoDB Atlas
+## - Crear un archivo .env para ocultar las credenciales
+## - CRUD y conexión con la base de datos Mongo Atlas
+## - ceación de modelos (Usuarios, Personajes, Trasfondos, Juegos)
+## - Establecer rutas de creación, edición y borrado de cada uno de los modelos, según necesidades
+## - Configurar la autenticación de usuarios con JWT
+---
+---
+---
+# FRONTEND:
+ ## (En desarrollo...)
 
