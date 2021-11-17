@@ -3,7 +3,6 @@ const { checkToken } = require("../middlewares");
 const juegoRouter = express.Router();
 const Juego = require("../models/juegoModel");
 
-//nuevo juego
 juegoRouter.post("/", checkToken, async (req, res) => {
   try {
     const { nombre } = req.body;
@@ -31,10 +30,9 @@ juegoRouter.post("/", checkToken, async (req, res) => {
   }
 });
 
-//información de juegos
 juegoRouter.get("/", async (req, res) => {
   try {
-    const juegos = await Juego.find({});
+    const juegos = await Juego.find();
     return res.json({
       success: true,
       juegos,
@@ -48,14 +46,13 @@ juegoRouter.get("/", async (req, res) => {
   }
 });
 
-//borrar juegos
 juegoRouter.delete("/find/:id/delete", checkToken, async (req, res) => {
   try {
     const { id } = req.params;
     let juego = await Juego.findByIdAndDelete(id);
     return res.send({
       sucess: true,
-      message: `el juego ha sido borrado con éxito`,
+      message: `El juego ha sido borrado.`,
     });
   } catch (err) {
     console.log(err);
@@ -66,7 +63,6 @@ juegoRouter.delete("/find/:id/delete", checkToken, async (req, res) => {
   }
 });
 
-//modificar juegos
 juegoRouter.put("/find/:id/update", checkToken, async (req, res) => {
   try {
     const { id } = req.params;
@@ -80,7 +76,7 @@ juegoRouter.put("/find/:id/update", checkToken, async (req, res) => {
 
     return res.send({
       success: true,
-      message: `El juego se modificó correctamente`,
+      message: `Has cambiado el nombre del juego a ${juego.nombre}.`,
     });
   } catch (err) {
     console.log(err);

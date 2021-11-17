@@ -7,7 +7,6 @@ const Usuario = require("../models/usuarioModel");
 const Personaje = require("../models/personajeModel");
 const bcrypt = require("bcrypt");
 
-//crear usuario
 usuarioRouter.post("/signup", async (req, res) => {
   try {
     const {
@@ -25,12 +24,7 @@ usuarioRouter.post("/signup", async (req, res) => {
     if (
       !nick ||
       !password ||
-      !correo ||
-      !nombreReal ||
-      !edad ||
-      !pronombres ||
-      !sobreMi ||
-      !enlaces
+      !correo
     ) {
       return res.status(403).json({
         success: false,
@@ -38,11 +32,11 @@ usuarioRouter.post("/signup", async (req, res) => {
       });
     }
 
-    const buscarUsuario = await Usuario.findOne({ correo });
-    if (buscarUsuario) {
+    const buscarCorreo = await Usuario.findOne({ correo });
+    if (buscarCorreo) {
       return res.status(403).json({
         sucess: false,
-        message: "este correo ya existe",
+        message: "Ya existe una cuenta vinculada con este correo",
       });
     } else if (
       password.search(
@@ -56,7 +50,6 @@ usuarioRouter.post("/signup", async (req, res) => {
       });
     }
 
-    //const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, 10);
 
     const usuario = new Usuario({
@@ -74,8 +67,8 @@ usuarioRouter.post("/signup", async (req, res) => {
 
     //creación de Token
     const token = jwt.sign({ id: newUsuario._id }, JWT_SECRET, {
-      expiresIn: "168h",
-    }); //poner 15 dias
+      expiresIn: "336h",
+    });
 
     return res.status(201).json({
       success: true,
@@ -129,11 +122,11 @@ usuarioRouter.post("/login", async (req, res) => {
     token,
   });
 });
-//información de usuarios ya creados
+
 usuarioRouter.get("/", checkToken, async (req, res) => {
   const { id } = req.usuario;
   try {
-    const usuarios = await Usuario.find();
+    const usuarios = await Usuario.find().populate("personajes", "nombre");
 
     return res.json({
       success: true,
@@ -148,7 +141,6 @@ usuarioRouter.get("/", checkToken, async (req, res) => {
   }
 });
 
-//modificar un usuario
 usuarioRouter.put("/find/:id/update", checkToken, async (req, res) => {
   try {
     const { id } = req.params;
@@ -175,7 +167,7 @@ usuarioRouter.put("/find/:id/update", checkToken, async (req, res) => {
 
     return res.send({
       success: true,
-      message: `El usuario ${usuario.nick} se modificó correctamente`,
+      message: `El nombre ha sido cambiado por ${usuario.nick}`,
     });
   } catch (err) {
     console.log(err);
@@ -186,14 +178,13 @@ usuarioRouter.put("/find/:id/update", checkToken, async (req, res) => {
   }
 });
 
-//borrar un usuario
 usuarioRouter.delete("/find/:id/delete", checkToken, async (req, res) => {
   try {
     const { id } = req.params;
     let usuario = await Usuario.findByIdAndDelete(id);
     return res.send({
       sucess: true,
-      message: `el usuario ${usuario.nick}  ha sido borrado con éxito`,
+      message: `el usuario ${usuario.nick}  ha sido borrado.`,
     });
   } catch (err) {
     console.log(err);

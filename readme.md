@@ -73,14 +73,13 @@ Apartado en el que se explicará el concepto de la web, con un botón de reporta
 "mongoose": "^6.0.12"
 
 # Instrucciones de instalación
-## Escribe "npm install" para instalar todas las dependencias
+## -Escribe "npm install" para instalar todas las dependencias
 
 ## - "npm run server" para iniciar el servidor
 ## - Crea cuenta en MongoDB Atlas
 ## - Crear un archivo .env para ocultar las credenciales
 ## - CRUD y conexión con la base de datos Mongo Atlas
-## - ceación de modelos (Usuarios, Personajes, Trasfondos, Juegos
-## -)
+## - ceación de modelos (Usuarios, Personajes, Trasfondos, Juegos)
 ## - Establecer rutas de creación, edición y borrado de cada uno de los modelos, según necesidades
 ## - Configurar la autenticación de usuarios con JWT
 ---

@@ -16,7 +16,7 @@ mongoose.connect(uri, {
 
 mongoose
   .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("conectado a mongodb"))
+  .then(() => console.log("conectado a MongoDB"))
   .catch(e => console.log(e))
 
 app.use(express.json());

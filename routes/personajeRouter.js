@@ -6,7 +6,6 @@ const Juego = require("../models/juegoModel");
 const Propietario = require("../models/usuarioModel");
 const Trasfondo = require("../models/trasfondoModel");
 
-//crear personaje
 personajeRouter.post("/", checkToken, async (req, res) => {
   try {
     const {
@@ -80,7 +79,8 @@ personajeRouter.post("/", checkToken, async (req, res) => {
     if (!nombre || !juego) {
       return res.status(403).json({
         success: false,
-        message: "Falta información imprescindible",
+        message:
+          "Para guardar tu personaje solo es necesario indicar su nombre y el juego al que pertenece",
       });
     }
     const personaje = new Personaje({
@@ -153,7 +153,6 @@ personajeRouter.post("/", checkToken, async (req, res) => {
     const newPersonaje = await personaje.save();
 
     let personajeArray = await Propietario.findById(propietario);
-
     personajeArray.personajes.push(newPersonaje._id);
     await personajeArray.save();
 
@@ -170,13 +169,12 @@ personajeRouter.post("/", checkToken, async (req, res) => {
   }
 });
 
-//información de personajes creados
 personajeRouter.get("/", async (req, res) => {
   try {
     const personajes = await Personaje.find()
       .populate("juego", "nombre")
       .populate("propietario", "nick")
-      .populate("trasfondo")
+      .populate("trasfondo", "titulo")
       .populate("otrosTrasfondos", "titulo");
 
     return res.json({
@@ -192,7 +190,6 @@ personajeRouter.get("/", async (req, res) => {
   }
 });
 
-//borrar personaje por id
 personajeRouter.delete("/find/:id/delete", checkToken, async (req, res) => {
   try {
     const { id } = req.params;
@@ -201,33 +198,30 @@ personajeRouter.delete("/find/:id/delete", checkToken, async (req, res) => {
     if (!personaje) {
       return res.status(400).json({
         success: false,
-        message: "El personaje no existe",
+        message: "Este personaje ya fue borrado",
       });
     }
 
     let usuario = await Propietario.findById(req.usuario.id);
-    //console.log(usuario)
 
     if (!personaje.propietario.equals(req.usuario.id)) {
       return res.status(400).json({
         success: false,
-        message: "El personaje no es de tu propiedad",
+        message: "No puedes borrar un personaje que no es tuyo.",
       });
     }
 
     let index = usuario.personajes.indexOf(id);
     if (index > -1) {
       usuario.personajes.splice(index, 1);
-     await usuario.save();
+      await usuario.save();
     }
 
-    await personaje.deleteOne(); 
-
-
+    await personaje.deleteOne();
 
     return res.send({
       sucess: true,
-      message: `el personaje ${personaje.nombre} ha sido borrado con éxito`,
+      message: `Has borrado el personaje ${personaje.nombre}.`,
     });
   } catch (err) {
     console.log(err);
@@ -238,9 +232,7 @@ personajeRouter.delete("/find/:id/delete", checkToken, async (req, res) => {
   }
 });
 
-//modificar personaje
 personajeRouter.put("/find/:id/update", checkToken, async (req, res) => {
-  //if (usuarios[0]._id)
   try {
     const { id } = req.params;
     let {
@@ -321,7 +313,7 @@ personajeRouter.put("/find/:id/update", checkToken, async (req, res) => {
 
     return res.send({
       success: true,
-      message: `El personaje se modificó correctamente`,
+      message: `El personaje se ha renombrado como ${personaje.nombre}.`,
     });
   } catch (err) {
     console.log(err);

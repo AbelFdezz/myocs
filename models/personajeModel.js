@@ -10,7 +10,7 @@ const personajeSchema = new Schema({
   propietario: { type: mongoose.Types.ObjectId, ref: "Usuario" },
   imagen: { type: String },
   trasfondo: [{ type: mongoose.Types.ObjectId, ref: "Trasfondo" }],
-  otrosTrasfondos:[{  type: mongoose.Types.ObjectId, ref: "Trasfondo" }],    //historias en las que aparece!
+  otrosTrasfondos:[{  type: mongoose.Types.ObjectId, ref: "Trasfondo" }],
   edad: { type: Number },
   genero: { type: String },
   idiomas: { type: String },

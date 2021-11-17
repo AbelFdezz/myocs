@@ -8,9 +8,9 @@ var valMail = function(email) {
 
 
 const usuarioSchema = new Schema({
- nick:{ type: String, required: true}, 
+ nick:{ type: String, required: true, unique: true}, 
  password:{ type: String, required: "Por favor, introduce una contraseña."}, 
- correo:{ type: String, required: true, unique: true },
+ correo:{ type: String, required: true, unique: true, validate:[valMail, "Por favor, introduce un correo válido."]},
  nombreReal:{ type: String},
  edad:{ type: Number},
  pronombres:{ type: String},
