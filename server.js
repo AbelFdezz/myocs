@@ -2,7 +2,7 @@ const express = require("express");
 require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT;
-const fs = require("fs");
+//const fs = require("fs");
 const mongoose = require("mongoose");
 const user = process.env.user;
 const password = process.env.password;

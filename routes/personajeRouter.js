@@ -217,6 +217,18 @@ personajeRouter.delete("/find/:id/delete", checkToken, async (req, res) => {
       await usuario.save();
     }
 
+    for (let i = 0; i < personaje.otrosTrasfondos.length; i++) {
+      let trasfondoBuscado = await Trasfondo.findById(
+        personaje.otrosTrasfondos[i]
+      );
+
+      let j = trasfondoBuscado.otrosPersonajes.indexOf(id);
+      if (j > -1) {
+        trasfondoBuscado.otrosPersonajes.splice(j, 1);
+        await trasfondoBuscado.save();
+      }
+    }
+
     await personaje.deleteOne();
 
     return res.send({
@@ -307,6 +319,17 @@ personajeRouter.put("/find/:id/update", checkToken, async (req, res) => {
       if (req.body[key]) {
         personaje[key] = req.body[key];
       }
+    }
+
+    let usuario = await Propietario.findById(req.usuario.id);
+
+    let index = usuario.personajes.indexOf(id);
+    console.log(index);
+    if (index == -1) {
+      return res.status(400).json({
+        success: false,
+        message: "No puedes modificar un pesonaje que no es tuyo.",
+      });
     }
 
     const personajeActualizado = await personaje.save();

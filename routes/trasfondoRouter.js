@@ -9,6 +9,8 @@ trasfondoRouter.post("/", checkToken, async (req, res) => {
   try {
     const { titulo, cuerpo, personaje, otrosPersonajes } = req.body;
 
+    let usuario = await Propietario.findById(req.usuario.id);
+
     if (!titulo || !cuerpo || !personaje) {
       return res.status(403).json({
         success: false,
@@ -22,6 +24,17 @@ trasfondoRouter.post("/", checkToken, async (req, res) => {
       personaje,
       otrosPersonajes,
     });
+    let miPersonaje = trasfondo.personaje;
+
+    let index = usuario.personajes.indexOf(miPersonaje);
+    if (index == -1) {
+      console.log(index);
+      return res.status(400).json({
+        success: false,
+        message: "No puedes modificar el trasfondo de un personaje que no es tuyo.",
+      });
+    }
+
     const newTrasfondo = await trasfondo.save();
 
     let trasfondosPropios = await Personaje.findById(personaje);
@@ -128,12 +141,10 @@ trasfondoRouter.put("/find/:id/update", checkToken, async (req, res) => {
 
     let trasfondosArray = await Personaje.findById(otrosPersonajes);
 
-
     if (trasfondosArray) {
       trasfondosArray.otrosTrasfondos.push(trasfondoActualizado);
       await trasfondosArray.save();
     }
-
 
     return res.send({
       success: true,

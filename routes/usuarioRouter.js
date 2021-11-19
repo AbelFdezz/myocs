@@ -65,7 +65,6 @@ usuarioRouter.post("/signup", async (req, res) => {
     });
     const newUsuario = await usuario.save();
 
-    //creación de Token
     const token = jwt.sign({ id: newUsuario._id }, JWT_SECRET, {
       expiresIn: "336h",
     });
@@ -114,8 +113,8 @@ usuarioRouter.post("/login", async (req, res) => {
       message: "Credenciales erróneas (password)",
     });
   }
-  //creación de Token
-  const token = jwt.sign({ id: usuario._id }, JWT_SECRET, { expiresIn: "24h" });
+
+  const token = jwt.sign({ id: usuario._id }, JWT_SECRET, { expiresIn: "336h" });
 
   return res.json({
     success: true,
