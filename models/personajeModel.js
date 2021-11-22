@@ -9,6 +9,7 @@ const personajeSchema = new Schema({
   autor: { type: String },
   propietario: { type: mongoose.Types.ObjectId, ref: "Usuario" },
   imagen: { type: String },
+  cloudinary_id: { type: String },
   trasfondo: [{ type: mongoose.Types.ObjectId, ref: "Trasfondo" }],
   otrosTrasfondos:[{  type: mongoose.Types.ObjectId, ref: "Trasfondo" }],
   edad: { type: Number },

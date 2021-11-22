@@ -1,13 +1,17 @@
 const { checkToken } = require("../middlewares");
 const express = require("express");
+const cloudinary =require ("../utils/cloudinary");
+const upload =require ("../utils/multer");
 const personajeRouter = express.Router();
 const Personaje = require("../models/personajeModel");
 const Juego = require("../models/juegoModel");
 const Propietario = require("../models/usuarioModel");
 const Trasfondo = require("../models/trasfondoModel");
 
-personajeRouter.post("/", checkToken, async (req, res) => {
+personajeRouter.post("/", upload.single("imagen"), checkToken, async (req, res) => {
   try {
+    const result = await cloudinary.uploader.upload(req.file.path);
+
     const {
       nombre,
       juego,
@@ -16,6 +20,7 @@ personajeRouter.post("/", checkToken, async (req, res) => {
       autor,
       propietario,
       imagen,
+      cloudinary_id,
       trasfondo,
       otrosTrasfondos,
       edad,
@@ -90,7 +95,8 @@ personajeRouter.post("/", checkToken, async (req, res) => {
       estado,
       autor,
       propietario,
-      imagen,
+      imagen: result.secure_url,
+      cloudinary_id: result.public_id,
       trasfondo,
       otrosTrasfondos,
       edad,
@@ -168,6 +174,16 @@ personajeRouter.post("/", checkToken, async (req, res) => {
     });
   }
 });
+/*
+personajeRouter.post("/fotoPersonaje", checkToken, upload.single("image"), async (req, res) =>{
+  try{
+    const result = await cloudinary.uploader.upload(req.file.path)
+    res.json(result);
+  }catch (err) {
+    console.log (err);
+  }
+});
+*/
 
 personajeRouter.get("/", async (req, res) => {
   try {
