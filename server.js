@@ -2,12 +2,11 @@ const express = require("express");
 require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT;
-//const fs = require("fs");
 const mongoose = require("mongoose");
 const user = process.env.user;
 const password = process.env.password;
 
-const uri = `mongodb+srv://${user}:${password}@cluster0.59iqv.mongodb.net/data?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${user}:${password}@cluster0.59iqv.mongodb.net/data?retryWrites=true&w=majority`; //guardar en el .env
 
 mongoose.connect(uri, {
   useNewUrlParser: true,
