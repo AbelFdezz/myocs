@@ -21,11 +21,7 @@ usuarioRouter.post("/signup", async (req, res) => {
       personajes,
     } = req.body;
 
-    if (
-      !nick ||
-      !password ||
-      !correo
-    ) {
+    if (!nick || !password || !correo) {
       return res.status(403).json({
         success: false,
         message: "Falta información. Revise los datos.",
@@ -114,7 +110,9 @@ usuarioRouter.post("/login", async (req, res) => {
     });
   }
 
-  const token = jwt.sign({ id: usuario._id }, JWT_SECRET, { expiresIn: "336h" });
+  const token = jwt.sign({ id: usuario._id }, JWT_SECRET, {
+    expiresIn: "336h",
+  });
 
   return res.json({
     success: true,
@@ -122,8 +120,8 @@ usuarioRouter.post("/login", async (req, res) => {
   });
 });
 
-usuarioRouter.get("/", checkToken, async (req, res) => {
-  const { id } = req.usuario;
+usuarioRouter.get("/", async (req, res) => {
+  //const { id } = req.usuario; //poner cuando ponga el checktoken de vuelta
   try {
     const usuarios = await Usuario.find().populate("personajes", "nombre");
 
@@ -180,6 +178,7 @@ usuarioRouter.put("/find/:id/update", checkToken, async (req, res) => {
 usuarioRouter.delete("/find/:id/delete", checkToken, async (req, res) => {
   try {
     const { id } = req.params;
+
     let usuario = await Usuario.findByIdAndDelete(id);
     return res.send({
       sucess: true,
@@ -193,4 +192,30 @@ usuarioRouter.delete("/find/:id/delete", checkToken, async (req, res) => {
     });
   }
 });
+
+//ruta para ver "mis personajes"
+usuarioRouter.get("/find/:id/misPersonajes", checkToken, async (req, res) => {
+  const { id } = req.usuario;
+  try {
+    const misPersonajes = await Usuario.findById(id).populate({
+      path: "personajes",
+      select: "nombre",
+     //populate: { path: "personajes", select: "imagen" },
+    });
+    arrayPersonajes = misPersonajes.personajes;
+    console.log(arrayPersonajes);
+
+    return res.json({
+      success: true,
+      arrayPersonajes,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(400).json({
+      success: false,
+      message: err.message,
+    });
+  }
+});
+
 module.exports = usuarioRouter;

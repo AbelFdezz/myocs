@@ -487,5 +487,33 @@ personajeRouter.put(
     }
   }
 );
+/*
+personajeRouter.get("find/:id/misPersonajes", async (req, res) => {
+  try {
+    const { id } = req.usuario; 
+
+    console.log(req.usuario)
+
+    const personajes = await Personaje.find()
+      .populate("juego", "nombre")
+      .populate("propietario", "nick")
+      .populate("trasfondo", "titulo")
+      .populate("otrosTrasfondos", "titulo");
+      console.log()
+
+    return res.json({
+      success: true,
+      personajes,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(400).json({
+      success: false,
+      message: err.message,
+    });
+  }
+});
+
+*/
 
 module.exports = personajeRouter;
