@@ -14,7 +14,11 @@ personajeRouter.post(
   checkToken,
   async (req, res) => {
     try {
-      const result = await cloudinary.uploader.upload(req.file.path);
+      let result;
+      if(req.file){
+         result = await cloudinary.uploader.upload(req.file.path);
+      }
+  
 
       const {
         nombre,
@@ -99,8 +103,8 @@ personajeRouter.post(
         estado,
         autor,
         propietario,
-        imagen: result.secure_url,
-        cloudinary_id: result.public_id,
+        imagen: result?.secure_url,
+        cloudinary_id: result?.public_id,
         trasfondo,
         otrosTrasfondos,
         edad,
