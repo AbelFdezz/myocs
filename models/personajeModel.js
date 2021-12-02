@@ -59,7 +59,7 @@ const personajeSchema = new Schema({
   queLeHaceFeliz: { type: String },    
   nivelEmpatia: { type: Number },
   religion: { type: String },
-  creenciasEspirituales: { type: String },
+  creenciasEspirituales: { type: Number },
   padre: { type: String },
   madre: { type: String },
   hermanos: { type: String },     //60

@@ -19,6 +19,9 @@ const Recursos = () => {
       <p>https://www.fantasynamegenerators.com/</p>
       <p>https://thispersondoesnotexist.com/</p>
       <p>https://w2g.tv/</p>
+      <p>https://artflow.ai/</p>
+      <p>https://picrew.me/  creador de personajes</p>
+      <p>https://oskarstalberg.com/Townscaper/ Creador de ciudades/pueblos</p>
     </div>
   );
 };
