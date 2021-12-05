@@ -1,60 +1,116 @@
-import { Link } from "react-router-dom";
-
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import FloatingLabel from "react-bootstrap/FloatingLabel";
-
+import axios from "axios";
+import { useState } from "react";
+import { Fragment } from "react";
 
 const MiPerfilSetup = () => {
+  const [datos, setDatos] = useState({});
 
+  const handleInputChange = (event) => {
+    setDatos({
+      ...datos,
+      [event.target.name]: event.target.value,
+    });
+  };
 
-    return (
-      <div>
+  const enviarUsuario = async (event) => {
+    event.preventDefault();
+    var data = new FormData();
 
-<h3>Tu perfil</h3> <hr/>
+    for (var key in datos) {
+      if (datos[key]) {
+        data.append(key, datos[key]);
+      }
+    }
+    try {
+      let response = await axios.post("http://localhost:5000/data/usuarios/signup", data);
+      console.log(response);
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
 
-<h6>Pseudónimo</h6>
-<Form.Group className="mb-3 col-10 mx-auto" controlId="PerfilPseudonimo">
-    <Form.Control placeholder="" />
-  </Form.Group>
-<h6>Correo</h6>
-<Form.Group className="mb-3 col-10 mx-auto" controlId="PerfilCorreo">
-    <Form.Control placeholder="" />
-  </Form.Group>
-<h6>Nombre</h6>
-<Form.Group className="mb-3 col-10 mx-auto" controlId="PerfilNombre">
-    <Form.Control placeholder="" />
-  </Form.Group>
-<h6>Edad</h6>
-<Form.Group className="mb-3 col-10 mx-auto" controlId="Perfiledad">
-    <Form.Control placeholder="" />
-  </Form.Group>
-<h6>Pronombres</h6>
-<Form.Group className="mb-3 col-10 mx-auto" controlId="PerfilPronombres">
-    <Form.Control placeholder="" />
-  </Form.Group>
-<h6>Sobre mí</h6>
-<FloatingLabel controlId="SobreMi" label="No hay límites. Cuéntanos lo que quieras">
-    <Form.Control
-      as="textarea"
-      placeholder="Leave a comment here"
-      style={{ height: '120px' }}
-    />
-  </FloatingLabel>
+  return (
+    <Fragment>
+      <h3>Tu perfil</h3> <hr />
+      <form className="row" onSubmit={enviarUsuario}>
+        <div className="col-md-3">
+          <input //usuario
+            type="text"
+            name="nick"
+            placeholder="Usuario"
+            className="form-control"
+            onChange={handleInputChange}
+          ></input>
 
-<h4>Enlaces</h4>
-<FloatingLabel controlId="Enlaces" label="Pon enlaces a tus otras redes">
-    <Form.Control
-      as="textarea"
-      placeholder="Leave a comment here"
-      style={{ height: '120px' }}
-    />
-  </FloatingLabel>
-  <Link to="/MiPerfilSetup"><Button variant="success">Guardar</Button></Link> <hr />
+          <input //password
+            type="password"
+            name="password"
+            placeholder="Contraseña"
+            className="form-control"
+            onChange={handleInputChange}
+          ></input>
 
-      </div>
-       );
-    };
-    
-    export default MiPerfilSetup;
-    
+          <input //correo
+            type="email"
+            name="correo"
+            placeholder="Correo"
+            className="form-control"
+            onChange={handleInputChange}
+          ></input>
+
+          <input //nombreReal
+            type="text"
+            name="nombreReal"
+            placeholder="Nombre"
+            className="form-control"
+            onChange={handleInputChange}
+          ></input>
+
+          <input //edad
+            type="number"
+            name="edad"
+            placeholder="Edad"
+            className="form-control"
+            onChange={handleInputChange}
+          ></input>
+
+          <input //pronombres
+            type="text"
+            name="pronombres"
+            placeholder="Pronombres"
+            className="form-control"
+            onChange={handleInputChange}
+          ></input>
+
+          <input //sobreMi
+            type="textarea"
+            name="sobreMi"
+            placeholder="Sobre Mi"
+            className="form-control"
+            style={{ height: "120px" }}
+            onChange={handleInputChange}
+          ></input>
+
+          <input //enlaces
+            type="textarea"
+            name="enlaces"
+            placeholder="Enlaces a tus redes"
+            className="form-control"
+            style={{ height: "120px" }}
+            onChange={handleInputChange}
+          ></input>
+
+          <button
+            className="btn btn-success"
+            type="submit"
+            onClick={enviarUsuario}
+          >
+            Enviar
+          </button>
+        </div>
+      </form>
+    </Fragment>
+  );
+};
+
+export default MiPerfilSetup;

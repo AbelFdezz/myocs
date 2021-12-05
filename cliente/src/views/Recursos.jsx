@@ -22,6 +22,7 @@ const Recursos = () => {
       <p>https://artflow.ai/</p>
       <p>https://picrew.me/  creador de personajes</p>
       <p>https://oskarstalberg.com/Townscaper/ Creador de ciudades/pueblos</p>
+      <p>https://www.wombo.art/</p>
     </div>
   );
 };

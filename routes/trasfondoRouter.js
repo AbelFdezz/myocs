@@ -159,4 +159,25 @@ trasfondoRouter.put("/find/:id/update", checkToken, async (req, res) => {
   }
 });
 
+
+trasfondoRouter.get("/find/:id", checkToken, async (req, res) => {
+  try {
+    let trasfondos = await Trasfondo.find()
+      .populate("personaje", "nombre")
+      .populate("otrosPersonajes", "nombre");
+
+    return res.json({
+      success: true,
+      trasfondos,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(400).json({
+      success: false,
+      message: err.message,
+    });
+  }
+});
+
+
 module.exports = trasfondoRouter;

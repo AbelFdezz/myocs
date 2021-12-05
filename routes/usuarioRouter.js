@@ -21,6 +21,8 @@ usuarioRouter.post("/signup", async (req, res) => {
       personajes,
     } = req.body;
 
+console.log(req.body)
+
     if (!nick || !password || !correo) {
       return res.status(403).json({
         success: false,
@@ -67,7 +69,7 @@ usuarioRouter.post("/signup", async (req, res) => {
 
     return res.status(201).json({
       success: true,
-      trasfondo: newUsuario,
+      usuario: newUsuario,
       token,
     });
   } catch (err) {

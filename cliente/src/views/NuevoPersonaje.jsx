@@ -4,8 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
 
-//import {Image} from 'cloudinary-react';
-//import Select from "./components/Select";
+
 
 const NuevoPersonaje = () => {
   const [datos, setDatos] = useState({});

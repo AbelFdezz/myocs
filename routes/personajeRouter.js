@@ -491,19 +491,17 @@ personajeRouter.put(
     }
   }
 );
-/*
-personajeRouter.get("find/:id/misPersonajes", async (req, res) => {
+
+personajeRouter.get("/find/:id", async (req, res) => {
+  
   try {
-    const { id } = req.usuario; 
+    const { id } = req.params; 
 
-    console.log(req.usuario)
-
-    const personajes = await Personaje.find()
-      .populate("juego", "nombre")
+    const personajes = await Personaje.findById(id)/*.populate("juego", "nombre") 
       .populate("propietario", "nick")
       .populate("trasfondo", "titulo")
-      .populate("otrosTrasfondos", "titulo");
-      console.log()
+      .populate("otrosTrasfondos", "titulo");*/
+      console.log(personajes)
 
     return res.json({
       success: true,
@@ -518,6 +516,6 @@ personajeRouter.get("find/:id/misPersonajes", async (req, res) => {
   }
 });
 
-*/
+
 
 module.exports = personajeRouter;

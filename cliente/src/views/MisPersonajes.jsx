@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 
+
 const MisPersonajes = () => {
   const [ListaPersonajes, setListaPersonajes] = useState([]);
 
@@ -18,7 +19,6 @@ const MisPersonajes = () => {
             },
           }
         );
-        console.log(response.data);
         setListaPersonajes(response.data.arrayPersonajes);
       } catch (err) {
         console.log(err);
@@ -37,7 +37,13 @@ const MisPersonajes = () => {
       {ListaPersonajes.map((personaje, i) => {
         return (
           <div>
-            <div key={i}>{personaje.nombre} </div>
+            <div className="d-grid gap-2 mb-3  col-lg-6 ">
+              <Link to={`${personaje._id}`}>
+                <Button variant="success" size="lg">
+                  <div key={i}>{personaje.nombre} </div>
+                </Button>
+              </Link>
+            </div>
           </div>
         );
       })}
