@@ -1,9 +1,16 @@
 import React from "react";
 import Form from "react-bootstrap/Form";
 import { useState } from "react";
-import axios from "axios"
+import axios from "axios";
+import FloatingLabel from "react-bootstrap/FloatingLabel";
+import {useParams} from "react-router"
+import { Fragment } from "react";
 
-const CrearTrasfondo = () => {
+
+const NuevoTrasfondo = () => {
+  let { PersonajeId } = useParams();
+
+
     const [datos, setDatos] = useState({});
   
     const handleInputChange = (event) => {
@@ -23,11 +30,11 @@ const CrearTrasfondo = () => {
           }
         }
         try {
-          let response = await axios.post("/personajes", data, {
+          let response = await axios.post("/trasfondos", data, {
             headers: {
               "Content-Type": "multipart/form-data",
               Authorization:
-                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTYxZDExMmU4MDVkN2U0MTMwNjNkYSIsImlhdCI6MTYzODM3NTM4NywiZXhwIjoxNjM5NTg0OTg3fQ._qvQR1Kr7zmcFcJbKtfNRJSSsnnQbK_cLRG_OTPNY_w",
+                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTYxZDExMmU4MDVkN2U0MTMwNjNkYSIsImlhdCI6MTYzODgxMzIxMCwiZXhwIjoxNjQwMDIyODEwfQ.RCCGJ5GJRA7KEQ7S4lviJMrhIdNYqOO9gfyRW4SiNf8",
             },
           });
           console.log(response);
@@ -37,11 +44,11 @@ const CrearTrasfondo = () => {
       };
 
       return (
- <div>
+        <Fragment>
           <h2>Nuevo trasfondo</h2>
     
           <form className="row" onSubmit={enviarTrasfondo}>
-            <div className="col-md-3">
+<div className="col-md-3">
             <Form.Label>Título:</Form.Label>
               <input //Título
                 type="text"
@@ -51,6 +58,15 @@ const CrearTrasfondo = () => {
                 onChange={handleInputChange}
               ></input>
 
+<div className="col-md-3">
+            <Form.Label>Protagonista:</Form.Label>
+            <Form.Control value= {PersonajeId}
+                type="text"
+                name="personaje"
+              
+                className="form-control"
+                onChange={handleInputChange}
+                disabled />
 
 
 <Form.Label>Personaje invitado:</Form.Label>
@@ -63,15 +79,18 @@ const CrearTrasfondo = () => {
               ></input>
 
 <Form.Label>Trasfondo:</Form.Label>
-<input //Cuerpo
 
-                type="textarea"
-                name="cuerpo"
-                placeholder="Escribe su historia"
-                className="form-control"
-                height= '100px'
-                onChange={handleInputChange}
-              ></input>
+<FloatingLabel controlId="floatingTextarea2" label="">
+    <Form.Control
+      as="textarea"
+      name="cuerpo"
+
+      style={{ height: '100px' }}
+      onChange={handleInputChange}
+    />
+  </FloatingLabel>
+
+
 
 <button
             className="btn btn-success"
@@ -82,9 +101,10 @@ const CrearTrasfondo = () => {
           </button>
           <br />
         </div>
+        </div>
       </form>
-      </div>
+      </Fragment>
   );
 };
 
-export default CrearTrasfondo;
+export default NuevoTrasfondo;

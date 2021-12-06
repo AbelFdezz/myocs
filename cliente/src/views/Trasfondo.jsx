@@ -1,13 +1,11 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { Link } from "react-router-dom";
-import Button from "react-bootstrap/Button";
+import { useEffect, useState } from "react";
+import axios from "axios";
+
 
 const Trasfondo = () => {
   let { TrasfondoId } = useParams();
 
-console.log(TrasfondoId)
   const [Trasfondo, setTrasfondo] = useState(null);
 
   useEffect(() => {
@@ -19,8 +17,8 @@ console.log(TrasfondoId)
               "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTYxZDExMmU4MDVkN2U0MTMwNjNkYSIsImlhdCI6MTYzNzkxNTY1OSwiZXhwIjoxNjM5MTI1MjU5fQ.tzI2E-VSoQbp2CjPmppvdCfD0x4MgXx1pO9piJPnR6w",
           },
         });
-        setTrasfondo(response.data);
-        console.log(response.data)
+        setTrasfondo(response.data.trasfondos);
+        console.log(response.data.trasfondos[0])
       } catch (err) {
         console.log(err);
       }
@@ -30,9 +28,17 @@ console.log(TrasfondoId)
 
   const content = () => {
     return (
-<div>trasfondo???</div>
-    )
-  };
+<div>
+  
+<div> <p>Titulo: {Trasfondo[0].titulo}</p></div>
+<div> <p>Titulo: {Trasfondo[0].personaje}</p></div>
+<div> <p>Cuerpo: {Trasfondo[0].cuerpo}</p></div>
+<div> <p>ID???: {Trasfondo._id}</p></div>
+
+
+</div>
+    );
+  }
 
   return <div>{Trasfondo ? content() : "Cargando..."}</div>;
 };

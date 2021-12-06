@@ -10,7 +10,7 @@ trasfondoRouter.post("/", checkToken, async (req, res) => {
     const { titulo, cuerpo, personaje, otrosPersonajes } = req.body;
 
     let usuario = await Propietario.findById(req.usuario.id);
-
+console.log(req.body)
     if (!titulo || !cuerpo || !personaje) {
       return res.status(403).json({
         success: false,

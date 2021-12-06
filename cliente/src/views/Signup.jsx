@@ -8,6 +8,7 @@ const Signup = () => {
     //cuando arranca por primera vez se ejecuta.
   }, []);
 
+  
   return (
     <div className= "formulario row d-flex justify-content-center">
       <Accordion defaultActiveKey="0">
@@ -46,6 +47,18 @@ const Signup = () => {
           <Accordion.Header className="loginCorreo  col-lg-6">No tienes cuenta? Crea una</Accordion.Header>
           <Accordion.Body>
             <Form>
+
+            <Form.Group
+                className="signPassword col-lg-6"
+                controlId="formBasicPassword2"
+              >
+                <Form.Label>Nombre de usuario</Form.Label>
+                <Form.Control
+                  type="password"
+                  placeholder="Que sea segura, camarada."
+                />
+              </Form.Group>
+
               <Form.Group className="signCorreo col-lg-6" controlId="formBasicEmail2">
                 <Form.Label>Escribe tu correo</Form.Label>
                 <Form.Control type="email" placeholder="MyOCS@correo.com" />

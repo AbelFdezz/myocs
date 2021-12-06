@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Fragment } from "react";
 
 const MiPerfilSetup = () => {

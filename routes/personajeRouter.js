@@ -19,7 +19,6 @@ personajeRouter.post(
          result = await cloudinary.uploader.upload(req.file.path);
       }
   
-
       const {
         nombre,
         juego,

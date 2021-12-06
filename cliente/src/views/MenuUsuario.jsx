@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 
 const MenuUsuario = () => {
   useEffect(() => {
-    console.log("con dependencias");
+
   }, []);
 
   return (

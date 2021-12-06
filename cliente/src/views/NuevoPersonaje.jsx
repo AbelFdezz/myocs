@@ -5,7 +5,6 @@ import axios from "axios";
 import Form from "react-bootstrap/Form";
 
 
-
 const NuevoPersonaje = () => {
   const [datos, setDatos] = useState({});
 
@@ -50,7 +49,7 @@ const NuevoPersonaje = () => {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTYxZDExMmU4MDVkN2U0MTMwNjNkYSIsImlhdCI6MTYzODM3NTM4NywiZXhwIjoxNjM5NTg0OTg3fQ._qvQR1Kr7zmcFcJbKtfNRJSSsnnQbK_cLRG_OTPNY_w",
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTYxZDExMmU4MDVkN2U0MTMwNjNkYSIsImlhdCI6MTYzODgxMzIxMCwiZXhwIjoxNjQwMDIyODEwfQ.RCCGJ5GJRA7KEQ7S4lviJMrhIdNYqOO9gfyRW4SiNf8",
         },
       });
       console.log(response);

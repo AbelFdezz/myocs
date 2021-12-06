@@ -38,7 +38,7 @@ return(
   <div> <p>Tipo de partida: <br/> {Personaje.detallesJuego}</p></div>
   <div> <p>Estado: <br/>{Personaje.estado} </p></div>
   <div><Link to={`${Personaje.trasfondo}`}> <Button variant="success">Trasfondo</Button>
-              </Link> <Link to="/CrearTrasfondo">
+              </Link> <Link to={`${Personaje._id}/NuevoTrasfondo`}>
         <Button variant="success">Añadir trasfondo</Button>
       </Link>{" "}</div>
   <div> <p>Trasfondos donde aparece: <br/>{Personaje.otrosTrasfondos}</p></div>

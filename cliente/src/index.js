@@ -14,7 +14,7 @@ import Recursos from "./views/Recursos";
 import App from "./App";
 import MyOCS from "./views/MyOCS";
 import Personaje from "./views/Personaje";
-import CrearTrasfondo from "./views/CrearTrasfondo";
+import NuevoTrasfondo from "./views/NuevoTrasfondo";
 import Trasfondo from "./views/Trasfondo";
 
 ReactDOM.render(
@@ -28,11 +28,11 @@ ReactDOM.render(
         <Route exact path="/MisPersonajes" element={<MisPersonajes />} />
         <Route path="/MisPersonajes/:PersonajeId" element={<Personaje />} />
         <Route path="/MisPersonajes/:PersonajeId/:TrasfondoId" element={<Trasfondo />} />
+        <Route path="MisPersonajes/:PersonajeId/:PersonajeId/NuevoTrasfondo" element={<NuevoTrasfondo />} />
         <Route path="/MiPerfilSetup" element={<MiPerfilSetup />} />
         <Route path="/MiPerfil" element={<MiPerfil />} />
         <Route path="/Recursos" element={<Recursos />} />
         <Route path="/NuevoPersonaje" element={<NuevoPersonaje />} />
-        <Route path="/CrearTrasfondo" element={<CrearTrasfondo />} />
       </Route>
     </Routes>
   </BrowserRouter>,
