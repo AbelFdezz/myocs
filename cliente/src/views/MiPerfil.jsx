@@ -4,22 +4,25 @@ import { useEffect, useState} from "react";
 import Button from "react-bootstrap/Button";
 
 
+
 const MiPerfil = () => {
+  
   const [perfil, setPerfil] = useState([]);
 
   useEffect(() => {
     const getData = async () => {
       try {
         let response = await axios(
-          "/usuarios/find/61961d112e805d7e413063da/",
+          "/usuarios/find/miPerfil",
           {
             headers: {
-              Authorization:
-                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTYxZDExMmU4MDVkN2U0MTMwNjNkYSIsImlhdCI6MTYzNzkxNTY1OSwiZXhwIjoxNjM5MTI1MjU5fQ.tzI2E-VSoQbp2CjPmppvdCfD0x4MgXx1pO9piJPnR6w",
+              Authorization: localStorage.getItem("jwt_token")
+              
             },
           }
         );
-        setPerfil(response.data.arrayPersonajes);
+        setPerfil(response.data.miPerfil);
+        console.log(response.data)
       } catch (err) {
         console.log(err);
       }
@@ -27,29 +30,39 @@ const MiPerfil = () => {
     getData();
   }, []);
 
-  return (
+const content =() =>{
+  return(
     <div>
-      <h3>Tu perfil</h3> <hr />
-      <Link to="/MiPerfilSetup">
-        <Button variant="success">Editar perfil</Button>
-      </Link>{" "}
-      {perfil.map((usuario, i) => {
-        return (
-          <div>
-            <div className="d-grid gap-2 mb-3  col-lg-6 ">
-              <Link to={`${usuario._id}`}>
-                <Button variant="success" size="lg">
-                  <div key={i}>{usuario.nombre} </div>
-                </Button>
-              </Link>
-            </div>
-          </div>
-        );
-      })}
+    <h3>Tu perfil</h3> <hr />
+    
+    <div> <p>Nick: {perfil.nick}</p></div>
+    <div> <p>Correo: {perfil.correo}</p></div>
+    <div> <p>Nombre: {perfil.nombreReal}</p></div>
+    <div> <p>Pronombres: {perfil.pronombres}</p></div>
+    <div> <p>Edad: {perfil.edad}</p></div>
+    <div> <p>Sobre mi: {perfil.sobreMi}</p></div>
+    <div> <p>Enlaces: {perfil.enlaces}</p></div>
+
+    <hr />
+    <Link to="/MiPerfilSetup">
+      <Button variant="success">Editar perfil</Button>
+    </Link>{" "}
+    
+  </div>
 
 
-      <hr />
-    </div>
+  )
+}
+
+  return (
+
+<div>
+{MiPerfil ? content() : "Cargando..."}
+
+
+
+
+</div>
   );
 };
 

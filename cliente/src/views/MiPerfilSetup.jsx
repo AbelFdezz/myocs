@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Fragment } from "react";
 
 const MiPerfilSetup = () => {
@@ -22,7 +22,7 @@ const MiPerfilSetup = () => {
       }
     }
     try {
-      let response = await axios.post("http://localhost:5000/data/usuarios/signup", data);
+      let response = await axios.put("/usuarios/signup", data);
       console.log(response);
     } catch (error) {
       console.log(error.response);

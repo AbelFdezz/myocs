@@ -21,12 +21,19 @@ usuarioRouter.post("/signup", async (req, res) => {
       personajes,
     } = req.body;
 
-console.log(req.body)
+    console.log(req.body);
 
     if (!nick || !password || !correo) {
       return res.status(403).json({
         success: false,
         message: "Falta información. Revise los datos.",
+      });
+    }
+    const buscarUsuario = await Usuario.findOne({ nick });
+    if (buscarUsuario) {
+      return res.status(403).json({
+        sucess: false,
+        message: "Ya existe una cuenta vinculada con este nombre de usuario",
       });
     }
 
@@ -196,13 +203,13 @@ usuarioRouter.delete("/find/:id/delete", checkToken, async (req, res) => {
 });
 
 //ruta para ver "mis personajes"
-usuarioRouter.get("/find/:id/misPersonajes", checkToken, async (req, res) => {
+usuarioRouter.get("/find/misPersonajes", checkToken, async (req, res) => {
   const { id } = req.usuario;
   try {
     const misPersonajes = await Usuario.findById(id).populate({
       path: "personajes",
       select: "nombre",
-     //populate: { path: "personajes", select: "imagen" },
+      //populate: { path: "personajes", select: "imagen" },
     });
     arrayPersonajes = misPersonajes.personajes;
     console.log(arrayPersonajes);
@@ -210,6 +217,26 @@ usuarioRouter.get("/find/:id/misPersonajes", checkToken, async (req, res) => {
     return res.json({
       success: true,
       arrayPersonajes,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(400).json({
+      success: false,
+      message: err.message,
+    });
+  }
+});
+
+usuarioRouter.get("/find/miPerfil", checkToken, async (req, res) => {
+  const { id } = req.usuario;
+  try {
+    const miPerfil = await Usuario.findById(id);
+    
+    console.log(miPerfil);
+
+    return res.json({
+      success: true,
+      miPerfil,
     });
   } catch (err) {
     console.log(err);

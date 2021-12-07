@@ -22,6 +22,7 @@ ReactDOM.render(
     <Routes>
       <Route path="/" element={<App />} >
         <Route index element={<MyOCS />} />
+        <Route path="/MiPerfil" element={<MiPerfil />} />
         <Route path="/Signup" element={<Signup />} />
         <Route path="/MenuUsuario" element={<MenuUsuario />} />
         <Route path="/SobreNosotros" element={<SobreNosotros />} />
@@ -30,7 +31,6 @@ ReactDOM.render(
         <Route path="/MisPersonajes/:PersonajeId/:TrasfondoId" element={<Trasfondo />} />
         <Route path="MisPersonajes/:PersonajeId/:PersonajeId/NuevoTrasfondo" element={<NuevoTrasfondo />} />
         <Route path="/MiPerfilSetup" element={<MiPerfilSetup />} />
-        <Route path="/MiPerfil" element={<MiPerfil />} />
         <Route path="/Recursos" element={<Recursos />} />
         <Route path="/NuevoPersonaje" element={<NuevoPersonaje />} />
       </Route>

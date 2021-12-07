@@ -11,11 +11,11 @@ const MisPersonajes = () => {
     const getData = async () => {
       try {
         let response = await axios(
-          "/usuarios/find/61961d112e805d7e413063da/misPersonajes",
+          "/usuarios/find/misPersonajes",
           {
             headers: {
-              Authorization:
-                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTYxZDExMmU4MDVkN2U0MTMwNjNkYSIsImlhdCI6MTYzNzkxNTY1OSwiZXhwIjoxNjM5MTI1MjU5fQ.tzI2E-VSoQbp2CjPmppvdCfD0x4MgXx1pO9piJPnR6w",
+              Authorization: localStorage.getItem("jwt_token")
+              
             },
           }
         );

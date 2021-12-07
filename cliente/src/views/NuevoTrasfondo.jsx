@@ -10,8 +10,10 @@ import { Fragment } from "react";
 const NuevoTrasfondo = () => {
   let { PersonajeId } = useParams();
 
+    const [datos, setDatos] = useState({
 
-    const [datos, setDatos] = useState({});
+      personaje: PersonajeId
+    });
   
     const handleInputChange = (event) => {
       setDatos({
@@ -30,16 +32,17 @@ const NuevoTrasfondo = () => {
           }
         }
         try {
-          let response = await axios.post("/trasfondos", data, {
+          let response = await axios.post("/trasfondos", datos,  {
             headers: {
-              "Content-Type": "multipart/form-data",
-              Authorization:
-                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTYxZDExMmU4MDVkN2U0MTMwNjNkYSIsImlhdCI6MTYzODgxMzIxMCwiZXhwIjoxNjQwMDIyODEwfQ.RCCGJ5GJRA7KEQ7S4lviJMrhIdNYqOO9gfyRW4SiNf8",
+              Authorization: localStorage.getItem("jwt_token")
+              
             },
+          
           });
           console.log(response);
         } catch (error) {
           console.log(error.response);
+          // console.log(err.response.data);
         }
       };
 
@@ -53,27 +56,17 @@ const NuevoTrasfondo = () => {
               <input //Título
                 type="text"
                 name="titulo"
-                placeholder="Título"
+                placeholder=""
                 className="form-control"
                 onChange={handleInputChange}
               ></input>
-
-<div className="col-md-3">
-            <Form.Label>Protagonista:</Form.Label>
-            <Form.Control value= {PersonajeId}
-                type="text"
-                name="personaje"
-              
-                className="form-control"
-                onChange={handleInputChange}
-                disabled />
 
 
 <Form.Label>Personaje invitado:</Form.Label>
               <input //personajes invitados
                 type="text"
-                name="Personaje invitado"
-                placeholder="Título"
+                name="otrosPersonajes"
+                placeholder=""
                 className="form-control"
                 onChange={handleInputChange}
               ></input>
@@ -101,7 +94,7 @@ const NuevoTrasfondo = () => {
           </button>
           <br />
         </div>
-        </div>
+
       </form>
       </Fragment>
   );

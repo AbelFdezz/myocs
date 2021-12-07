@@ -387,8 +387,7 @@ personajeRouter.get("/nombre/:nombre", async (req, res) => {
   }
 });
 
-personajeRouter.put(
-  //solo para sustituir imagenes
+personajeRouter.put(  //solo para sustituir imagenes
   "/imagen/:id/update",
   upload.single("imagen"),
   checkToken,

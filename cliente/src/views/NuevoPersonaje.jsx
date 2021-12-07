@@ -45,12 +45,12 @@ const NuevoPersonaje = () => {
       }
     }
     try {
-      let response = await axios.post("/personajes", data, {
+      let response = await axios.post("/personajes", data,  {
         headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTYxZDExMmU4MDVkN2U0MTMwNjNkYSIsImlhdCI6MTYzODgxMzIxMCwiZXhwIjoxNjQwMDIyODEwfQ.RCCGJ5GJRA7KEQ7S4lviJMrhIdNYqOO9gfyRW4SiNf8",
+          Authorization: localStorage.getItem("jwt_token")
+          
         },
+      
       });
       console.log(response);
     } catch (error) {
