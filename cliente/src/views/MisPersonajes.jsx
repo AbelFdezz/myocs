@@ -36,7 +36,7 @@ const MisPersonajes = () => {
       <hr />
       {ListaPersonajes.map((personaje, i) => {
         return (
-          <div>
+          <div key={personaje._id}>
             <div className="d-grid gap-2 mb-3  col-lg-6 ">
               <Link to={`${personaje._id}`}>
                 <Button variant="success" size="lg">

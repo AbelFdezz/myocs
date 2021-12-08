@@ -22,7 +22,7 @@ const MiPerfil = () => {
           }
         );
         setPerfil(response.data.miPerfil);
-        console.log(response.data)
+        // console.log(response.data)
       } catch (err) {
         console.log(err);
       }
@@ -44,7 +44,7 @@ const content =() =>{
     <div> <p>Enlaces: {perfil.enlaces}</p></div>
 
     <hr />
-    <Link to="/MiPerfilSetup">
+    <Link to={`${perfil._id}`}>
       <Button variant="success">Editar perfil</Button>
     </Link>{" "}
     

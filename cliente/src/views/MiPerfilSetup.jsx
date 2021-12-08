@@ -1,8 +1,12 @@
 import axios from "axios";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Fragment } from "react";
+import { useParams } from "react-router-dom";
 
 const MiPerfilSetup = () => {
+  let { UsuarioId } = useParams();
+
   const [datos, setDatos] = useState({});
 
   const handleInputChange = (event) => {
@@ -22,7 +26,15 @@ const MiPerfilSetup = () => {
       }
     }
     try {
-      let response = await axios.put("/usuarios/signup", data);
+      let response = await axios.put(
+        `/usuarios/updateusuario/${UsuarioId}`,
+        datos,
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwt_token"),
+          },
+        }
+      );
       console.log(response);
     } catch (error) {
       console.log(error.response);
@@ -31,7 +43,7 @@ const MiPerfilSetup = () => {
 
   return (
     <Fragment>
-      <h3>Tu perfil</h3> <hr />
+      <h3>Mi perfil setup</h3> <hr />
       <form className="row" onSubmit={enviarUsuario}>
         <div className="col-md-3">
           <input //usuario
@@ -99,14 +111,14 @@ const MiPerfilSetup = () => {
             style={{ height: "120px" }}
             onChange={handleInputChange}
           ></input>
-
-          <button
+          <Link
+            to="/MiPerfil"
             className="btn btn-success"
             type="submit"
             onClick={enviarUsuario}
           >
             Enviar
-          </button>
+          </Link>
         </div>
       </form>
     </Fragment>

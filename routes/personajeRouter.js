@@ -13,6 +13,7 @@ personajeRouter.post(
   upload.single("imagen"),
   checkToken,
   async (req, res) => {
+
     try {
       let result;
       if(req.file){
@@ -260,7 +261,7 @@ personajeRouter.delete("/find/:id/delete", checkToken, async (req, res) => {
   }
 });
 
-personajeRouter.put("/find/:id/update", checkToken, async (req, res) => {
+personajeRouter.put("/update/:id", checkToken, async (req, res) => {
   try {
     const { id } = req.params;
     let {
@@ -341,7 +342,7 @@ personajeRouter.put("/find/:id/update", checkToken, async (req, res) => {
     let usuario = await Propietario.findById(req.usuario.id);
 
     let index = usuario.personajes.indexOf(id);
-    console.log(index);
+
     if (index == -1) {
       return res.status(400).json({
         success: false,
@@ -353,7 +354,7 @@ personajeRouter.put("/find/:id/update", checkToken, async (req, res) => {
 
     return res.send({
       success: true,
-      message: `El personaje se ha renombrado como ${personaje.nombre}.`,
+      message: `El personaje  ${personaje.nombre} se ha modificado correctamente.`,
     });
   } catch (err) {
     console.log(err);
@@ -363,9 +364,8 @@ personajeRouter.put("/find/:id/update", checkToken, async (req, res) => {
     });
   }
 });
-
-personajeRouter.get("/nombre/:nombre", async (req, res) => {
   //ruta busqueda por nombre
+personajeRouter.get("/nombre/:nombre", checkToken, async (req, res) => {
   try {
     const { nombre } = req.params;
     const personajes = await Personaje.find({ nombre })
@@ -388,7 +388,7 @@ personajeRouter.get("/nombre/:nombre", async (req, res) => {
 });
 
 personajeRouter.put(  //solo para sustituir imagenes
-  "/imagen/:id/update",
+  "/imagen/update/:id",
   upload.single("imagen"),
   checkToken,
   async (req, res) => {
@@ -495,10 +495,10 @@ personajeRouter.get("/find/:id", async (req, res) => {
   try {
     const { id } = req.params; 
 
-    const personajes = await Personaje.findById(id)/*.populate("juego", "nombre") 
+    const personajes = await Personaje.findById(id).populate("juego", "nombre") 
       .populate("propietario", "nick")
       .populate("trasfondo", "titulo")
-      .populate("otrosTrasfondos", "titulo");*/
+      .populate("otrosTrasfondos", "titulo");
       console.log(personajes)
 
     return res.json({

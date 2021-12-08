@@ -147,7 +147,7 @@ usuarioRouter.get("/", async (req, res) => {
   }
 });
 
-usuarioRouter.put("/find/:id/update", checkToken, async (req, res) => {
+usuarioRouter.put("/updateUsuario/:id", checkToken, async (req, res) => {
   try {
     const { id } = req.params;
     let {
@@ -173,7 +173,7 @@ usuarioRouter.put("/find/:id/update", checkToken, async (req, res) => {
 
     return res.send({
       success: true,
-      message: `El nombre ha sido cambiado por ${usuario.nick}`,
+      message: `Los datos del usuario ${usuario.nick} han sido modificados correctamente.`
     });
   } catch (err) {
     console.log(err);

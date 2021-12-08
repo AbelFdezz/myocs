@@ -18,9 +18,10 @@ const Personaje = () => {
               Authorization: localStorage.getItem("jwt_token")
               
             },
-          
-        });
+          });
+  
         setPersonaje(response.data.personajes);
+        console.log(response.data.personajes)
       } catch (err) {
         console.log(err);
       }
@@ -33,13 +34,16 @@ const content = () =>{
 return(
 <div>
   <img  src= {Personaje.imagen} alt="Avatar" width= "100%" />
+  <Link to={`${PersonajeId}`}>
+      <Button variant="success">Editar personaje</Button>
+    </Link>{" "}
   <div> <p>Nombre: {Personaje.nombre}</p></div>
   <div> <p>Autor: <br/>{Personaje.autor}</p></div>
-  <div> <p>Propietario: <br/>{Personaje.propietario}</p></div>
-  <div> <p>Juego: {Personaje.trasfondo}</p></div>
+  <div> <p>Propietario: <br/>{Personaje.propietario.nick}</p></div>
+  <div> <p>Juego: {Personaje.juego.nombre}</p></div>
   <div> <p>Tipo de partida: <br/> {Personaje.detallesJuego}</p></div>
   <div> <p>Estado: <br/>{Personaje.estado} </p></div>
-  <div><Link to={`${Personaje.trasfondo}`}> <Button variant="success">Trasfondo</Button>
+  <div><Link to={`Trasfondo/${Personaje.trasfondo[0]._id}`}> <Button variant="success">Trasfondo</Button>
               </Link> <Link to={`${Personaje._id}/NuevoTrasfondo`}>
         <Button variant="success">Añadir trasfondo</Button>
       </Link>{" "}</div>
@@ -100,20 +104,15 @@ return(
   <div> <p>¿Algo reseñable en su vecindario?:{Personaje.vecinos}</p></div>
   <div> Enemigos<p>{Personaje.enemigos}</p></div>
   </div>
-);
-
+  );
+  
 }
 
-  return (
-<div>
+return (
+  <div>
 {Personaje ? content() : "Cargando..."}
-
-
-
-
 </div>
   )
-
 };
 
 export default Personaje;

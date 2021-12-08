@@ -125,7 +125,7 @@ trasfondoRouter.delete("/find/:id/delete", checkToken, async (req, res) => {
   }
 });
 
-trasfondoRouter.put("/find/:id/update", checkToken, async (req, res) => {
+trasfondoRouter.put("/update/:id", checkToken, async (req, res) => {
   try {
     const { id } = req.params;
     let { titulo, cuerpo, personaje, otrosPersonajes } = req.body;

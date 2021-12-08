@@ -16,6 +16,8 @@ import MyOCS from "./views/MyOCS";
 import Personaje from "./views/Personaje";
 import NuevoTrasfondo from "./views/NuevoTrasfondo";
 import Trasfondo from "./views/Trasfondo";
+import TrasfondoSetup from "./views/TrasfondoSetup"
+import PersonajeSetup from "./views/PersonajeSetup"
 
 ReactDOM.render(
   <BrowserRouter>
@@ -23,14 +25,16 @@ ReactDOM.render(
       <Route path="/" element={<App />} >
         <Route index element={<MyOCS />} />
         <Route path="/MiPerfil" element={<MiPerfil />} />
+        <Route path="/MiPerfil/:UsuarioId" element={<MiPerfilSetup />} />
         <Route path="/Signup" element={<Signup />} />
         <Route path="/MenuUsuario" element={<MenuUsuario />} />
         <Route path="/SobreNosotros" element={<SobreNosotros />} />
         <Route exact path="/MisPersonajes" element={<MisPersonajes />} />
         <Route path="/MisPersonajes/:PersonajeId" element={<Personaje />} />
-        <Route path="/MisPersonajes/:PersonajeId/:TrasfondoId" element={<Trasfondo />} />
-        <Route path="MisPersonajes/:PersonajeId/:PersonajeId/NuevoTrasfondo" element={<NuevoTrasfondo />} />
-        <Route path="/MiPerfilSetup" element={<MiPerfilSetup />} />
+        <Route path="/MisPersonajes/:PersonajeId/:TrasfondoId/" element={<Trasfondo />} />
+        <Route path="/MisPersonajes/:PersonajeId/:PersonajeId" element={<PersonajeSetup />} />
+        <Route path="/MisPersonajes/:PersonajeId/:TrasfondoId/TrasfondoSetup" element={<TrasfondoSetup />} />
+        <Route path="MisPersonajes/:PersonajeId/:PersonajeId/NuevoTrasfondo" element={<NuevoTrasfondo />} /> 
         <Route path="/Recursos" element={<Recursos />} />
         <Route path="/NuevoPersonaje" element={<NuevoPersonaje />} />
       </Route>

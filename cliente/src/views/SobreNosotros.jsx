@@ -10,7 +10,7 @@ const SobreNosotros = () => {
     <div>
 
 
-      <h3>Probando ruta a página "Sobre MyOCS</h3>
+      <h3>MyOCS es una web muy molona tal y tal y cual</h3>
     </div>
   );
 };

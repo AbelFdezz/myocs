@@ -1,12 +1,21 @@
-import React from "react";
-import { Fragment } from "react";
-import { useState } from "react";
 import axios from "axios";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { Fragment } from "react";
+import { useParams } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 
+const PersonajeSetup = () => {
+  let { PersonajeId } = useParams();
 
-const NuevoPersonaje = () => {
   const [datos, setDatos] = useState({});
+
+  const handleInputChange2 = (event2) => {
+    setDatos({
+      ...datos,
+      [event2.target.name]: event2.target.value,
+    });
+  };
 
   const handleInputChange = (event) => {
     setDatos({
@@ -14,54 +23,91 @@ const NuevoPersonaje = () => {
       [event.target.name]: event.target.value,
     });
   };
-  /*
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        let res = await axios("/juegos", {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTYxZDExMmU4MDVkN2U0MTMwNjNkYSIsImlhdCI6MTYzODM3NTM4NywiZXhwIjoxNjM5NTg0OTg3fQ._qvQR1Kr7zmcFcJbKtfNRJSSsnnQbK_cLRG_OTPNY_w",
-          },
-        });
-
-        console.log(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getData();
-  }, []);
-*/
 
   const enviarPersonaje = async (event) => {
     event.preventDefault();
     var data = new FormData();
+
     for (var key in datos) {
       if (datos[key]) {
         data.append(key, datos[key]);
       }
     }
-    console.log(datos)
-    console.log(data)
     try {
-      let response = await axios.post("/personajes", data,  {
-        headers: {
-          Authorization: localStorage.getItem("jwt_token")
-          
-        },
-      
-      });
+      let response = await axios.put(
+        `/personajes/update/${PersonajeId}`,
+        datos,
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwt_token"),
+          },
+        }
+      );
       console.log(response);
     } catch (error) {
       console.log(error.response);
     }
   };
 
+  const enviarFoto = async (event2) => {
+    event2.preventDefault();
+    var data = new FormData();
+
+    for (var key in datos) {
+      if (datos[key]) {
+        data.append(key, datos[key]);
+      }
+    }
+    try {
+      let response = await axios.put(
+        `/personajes/imagen/update/${PersonajeId}`,
+        data,
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwt_token"),
+          },
+        }
+      );
+      console.log(response);
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
+
+
   return (
     <Fragment>
       <h2>Nuevo personaje</h2>
+
+      <form className="row" onSubmit={enviarFoto}>
+      <div className="col-md-3">
+      <Form.Label>Imagen</Form.Label>
+          <Form.Control //FOTO
+            type="file"
+            size="sm"
+            name="imagen"
+            className="form-control"
+            onSubmit={enviarFoto}
+            onChange={(event2) => {
+              setDatos({
+                ...datos,
+                imagen: event2.target.files[0],
+              });
+            }}
+          />
+           <button
+            className="btn btn-success"
+            type="submit"
+            onClick={enviarFoto}
+          >
+            Cambiar foto
+          </button>
+              </div>
+      </form>
+
+
+
 
 
       <form className="row" onSubmit={enviarPersonaje}>
@@ -114,19 +160,19 @@ const NuevoPersonaje = () => {
             onChange={handleInputChange}
           ></input>
 
-          <Form.Label>Imagen</Form.Label>
+          {/* <Form.Label>Imagen</Form.Label>
           <Form.Control //FOTO
             type="file"
             size="sm"
             name="imagen"
             className="form-control"
-            onChange={(event) => {
+            onChange={(event2) => {
               setDatos({
                 ...datos,
-                imagen: event.target.files[0],
+                imagen: event2.target.files[0],
               });
             }}
-          />
+          /> */}
 
           <input //edad
             type="number"
@@ -590,4 +636,5 @@ const NuevoPersonaje = () => {
   );
 };
 
-export default NuevoPersonaje;
+export default PersonajeSetup;
+
