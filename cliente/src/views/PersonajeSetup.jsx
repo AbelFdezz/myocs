@@ -78,7 +78,7 @@ const PersonajeSetup = () => {
 
   return (
     <Fragment>
-      <h2>Nuevo personaje</h2>
+      <h2>Editar COÑO personaje</h2>
 
       <form className="row" onSubmit={enviarFoto}>
       <div className="col-md-3">

@@ -34,6 +34,8 @@ const MisPersonajes = () => {
         <Button variant="success">Nuevo personaje</Button>
       </Link>{" "}
       <hr />
+
+      
       {ListaPersonajes.map((personaje, i) => {
         return (
           <div key={personaje._id}>

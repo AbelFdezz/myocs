@@ -63,8 +63,7 @@ console.log(req.body)
 
 trasfondoRouter.get("/", async (req, res) => {
   try {
-    let trasfondos = await Trasfondo.find()
-      .populate("personaje", "nombre")
+    let trasfondos = await Trasfondo.find().populate("personaje", "nombre")
       .populate("otrosPersonajes", "nombre");
 
     return res.json({
@@ -80,7 +79,7 @@ trasfondoRouter.get("/", async (req, res) => {
   }
 });
 
-trasfondoRouter.delete("/find/:id/delete", checkToken, async (req, res) => {
+trasfondoRouter.delete("/delete/:id", checkToken, async (req, res) => {
   try {
     const { id } = req.params;
     let trasfondoBuscado = await Trasfondo.findById(id);
@@ -161,14 +160,15 @@ trasfondoRouter.put("/update/:id", checkToken, async (req, res) => {
 
 
 trasfondoRouter.get("/find/:id", checkToken, async (req, res) => {
+  const {id} = req.params
   try {
-    let trasfondos = await Trasfondo.find()
+    let trasfondo = await Trasfondo.findById(id)
       .populate("personaje", "nombre")
       .populate("otrosPersonajes", "nombre");
 
     return res.json({
       success: true,
-      trasfondos,
+      trasfondo,
     });
   } catch (err) {
     console.log(err);

@@ -21,7 +21,7 @@ const Personaje = () => {
           });
   
         setPersonaje(response.data.personajes);
-        console.log(response.data.personajes)
+
       } catch (err) {
         console.log(err);
       }
@@ -34,7 +34,7 @@ const content = () =>{
 return(
 <div>
   <img  src= {Personaje.imagen} alt="Avatar" width= "100%" />
-  <Link to={`${PersonajeId}`}>
+  <Link to={`/MisPersonajes/${PersonajeId}/Setup`}>
       <Button variant="success">Editar personaje</Button>
     </Link>{" "}
   <div> <p>Nombre: {Personaje.nombre}</p></div>
@@ -43,11 +43,39 @@ return(
   <div> <p>Juego: {Personaje.juego.nombre}</p></div>
   <div> <p>Tipo de partida: <br/> {Personaje.detallesJuego}</p></div>
   <div> <p>Estado: <br/>{Personaje.estado} </p></div>
-  <div><Link to={`Trasfondo/${Personaje.trasfondo[0]._id}`}> <Button variant="success">Trasfondo</Button>
-              </Link> <Link to={`${Personaje._id}/NuevoTrasfondo`}>
+<p>Trasfondos:</p>
+{Personaje.trasfondo.map((trasfondo, i) => {
+          return (
+            <div key={trasfondo._id}>
+              <div className="d-grid gap-2 mb-3  col-lg-6 ">
+              <Link to={`/MisPersonajes/Trasfondo/${trasfondo._id}`}>
+                <Button variant="success" size="s">
+                <div key={i}>{trasfondo.titulo} </div>
+                </Button>
+              </Link>
+              </div>
+              </div>
+          );
+        })}
+              <Link to={`${Personaje._id}/NuevoTrasfondo`}>
         <Button variant="success">Añadir trasfondo</Button>
-      </Link>{" "}</div>
-  <div> <p>Trasfondos donde aparece: <br/>{Personaje.otrosTrasfondos}</p></div>
+      </Link>{" "}
+      <p>Trasfondos en los que aparece:</p>
+
+      {Personaje.otrosTrasfondos.map((trasfondo, i) => {
+          return (
+            <div key={trasfondo._id}>
+              <div className="d-grid gap-2 mb-3  col-lg-6 ">
+              <Link to={`/MisPersonajes/Trasfondo/${trasfondo._id}`}>
+                <Button variant="success" size="s">
+                <div key={i}>{trasfondo.titulo} </div>
+                </Button>
+              </Link>
+              </div>
+              </div>
+          );
+        })}
+
   <div> <p>Edad: {Personaje.edad}</p></div>
   <div> <p>Género: {Personaje.genero}</p></div>
   <div> <p>Idiomas: {Personaje.idiomas}</p></div>

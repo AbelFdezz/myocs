@@ -18,6 +18,7 @@ import NuevoTrasfondo from "./views/NuevoTrasfondo";
 import Trasfondo from "./views/Trasfondo";
 import TrasfondoSetup from "./views/TrasfondoSetup"
 import PersonajeSetup from "./views/PersonajeSetup"
+import BorrarTrasfondo from "./views/BorrarTrasfondo"
 
 ReactDOM.render(
   <BrowserRouter>
@@ -30,11 +31,12 @@ ReactDOM.render(
         <Route path="/MenuUsuario" element={<MenuUsuario />} />
         <Route path="/SobreNosotros" element={<SobreNosotros />} />
         <Route exact path="/MisPersonajes" element={<MisPersonajes />} />
-        <Route path="/MisPersonajes/:PersonajeId" element={<Personaje />} />
-        <Route path="/MisPersonajes/:PersonajeId/:TrasfondoId/" element={<Trasfondo />} />
-        <Route path="/MisPersonajes/:PersonajeId/:PersonajeId" element={<PersonajeSetup />} />
-        <Route path="/MisPersonajes/:PersonajeId/:TrasfondoId/TrasfondoSetup" element={<TrasfondoSetup />} />
-        <Route path="MisPersonajes/:PersonajeId/:PersonajeId/NuevoTrasfondo" element={<NuevoTrasfondo />} /> 
+        <Route exact path="/MisPersonajes/:PersonajeId" element={<Personaje />} />
+        <Route exact path="/MisPersonajes/Trasfondo/:trasfondoId/" element={<Trasfondo />} />
+        <Route exact path="/MisPersonajes/:PersonajeId/Setup" element={<PersonajeSetup />} />
+        <Route exact path="/MisPersonajes/TrasfondoSetup/:TrasfondoId" element={<TrasfondoSetup />} />
+        <Route exact path="MisPersonajes/:PersonajeId/:PersonajeId/NuevoTrasfondo" element={<NuevoTrasfondo />} /> 
+        <Route exact path="/BorrarTrasfondo/:trasfondoId" element={<BorrarTrasfondo />} />
         <Route path="/Recursos" element={<Recursos />} />
         <Route path="/NuevoPersonaje" element={<NuevoPersonaje />} />
       </Route>
