@@ -19,14 +19,12 @@ const Header = () => {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              <NavLink className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}  to="/MenuUsuario">
-                Menú
-              </NavLink>
-              <NavLink className={({ isActive }) => isActive ? "nav-link active" : "nav-link"} to="/MisPersonajes">
-               Mis Personajes
-              </NavLink>
+          
               <NavLink className={({ isActive }) => isActive ? "nav-link active" : "nav-link"} to="/MiPerfil">
-                Mi Perfil
+                Perfil
+              </NavLink>
+              <NavLink className={({ isActive }) => isActive ? "nav-link active" : "nav-link"} to="/Recursos">
+       Recursos
               </NavLink>
               <NavLink className={({ isActive }) => isActive ? "nav-link active" : "nav-link"} to="/SobreNosotros">
                 Sobre MyOCS

@@ -3,12 +3,19 @@ import { Fragment } from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
-import FloatingLabel from "react-bootstrap/FloatingLabel";
-import { Link } from "react-router-dom";
-import Button from "react-bootstrap/Button";
+import {useParams} from "react-router"
+import { Navigate, useNavigate } from "react-router-dom";
 
 const NuevoPersonaje = () => {
-  const [datos, setDatos] = useState({});
+  let navigate = useNavigate();
+  let { UsuarioId } = useParams();
+  console.log(UsuarioId)
+
+
+  const [datos, setDatos] = useState({
+
+    propietario: UsuarioId
+  });
 
   const handleInputChange = (event) => {
     setDatos({
@@ -39,12 +46,14 @@ const NuevoPersonaje = () => {
           Authorization: localStorage.getItem("jwt_token"),
         },
       });
+
+      navigate("/MisPersonajes/`${UsuarioId}`")
     } catch (error) {
       console.log(error.response);
     }
   };
 
-  const [juegos, setJuegos] = useState([]);
+  const [juegos, setJuegos] = useState(null);
 
   useEffect(() => {
     const getData = async () => {
@@ -54,8 +63,8 @@ const NuevoPersonaje = () => {
             Authorization: localStorage.getItem("jwt_token"),
           },
         });
-        setJuegos(response.data);
-        console.log(response.data);
+        setJuegos(response.data.juegos);
+   
       } catch (err) {
         console.log(err);
       }
@@ -77,29 +86,16 @@ const NuevoPersonaje = () => {
               onChange={handleInputChange}
             ></input>
 
-            {console.log(`este es de juegos: ${juegos}`)}
+          <Form.Select aria-label="Default select example" name="juego" onChange={handleInputChange}>
+        <option>Elige tu juego</option>
 
-        {/* hacer componente externo */}
-            <Form.Select aria-label="Default select example" onChange={handleInputChangeSelect}>
-        <option>Open this select menu</option>
-
- {juegos.juegos.map ((game, i) => {
+ {juegos.map ((game, i) => {
           return (
                 <option key={i} name="juego" value={game._id}>{game.nombre}</option>
           );
         })} 
 
-  </Form.Select>
-            <p> {juegos[0]}</p>
-
-            <input //juego
-              type="text"
-              name="juego"
-              placeholder="juego"
-              className="form-control"
-              onChange={handleInputChange}
-            ></input>
-
+  </Form.Select> 
             <input //detallesJuego
               type="text"
               name="detallesJuego"
@@ -124,13 +120,6 @@ const NuevoPersonaje = () => {
               onChange={handleInputChange}
             ></input>
 
-            <input //propietario: eq.params? id del logeado. pensarlo más adelante
-              type="text"
-              name="propietario"
-              placeholder="Propietario"
-              className="form-control"
-              onChange={handleInputChange}
-            ></input>
 
             <Form.Label>Imagen</Form.Label>
             <Form.Control //FOTO
@@ -608,6 +597,6 @@ const NuevoPersonaje = () => {
     );
   };
 
-  return <div>{NuevoPersonaje ? content() : "Cargando..."}</div>;
+  return <div>{juegos ? content() : "Cargando..."}</div>;
 };
 export default NuevoPersonaje;

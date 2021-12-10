@@ -4,21 +4,22 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 
-const BorrarTrasfondo = () => {
-  let { trasfondoId } = useParams();
+const BorrarPersonaje = () => {
+  let { PersonajeId } = useParams();
 
-  const [trasfondo, setTrasfondo] = useState(null);
+  const [Personaje, setPersonaje] = useState(null);
 
   useEffect(() => {
     const getData = async () => {
       try {
-        let response = await axios.delete(`/trasfondos/delete/${trasfondoId}`, {
+        let response = await axios.delete(`/personajes/delete/${PersonajeId}`, {
           headers: {
             Authorization: localStorage.getItem("jwt_token"),
           },
         });
 
-        setTrasfondo(response.data.trasfondo);
+        setPersonaje(response.data.Personaje);
+        console.log()
       } catch (err) {
         console.log(err);
       }
@@ -28,13 +29,13 @@ const BorrarTrasfondo = () => {
 
   return (
     <div>
-      <h2>Trasfondo Borrado</h2>
+      <h2>Personaje borrado</h2>
       <hr />
       <Link to={`/MiPerfil`}>
-        <Button variant="success">Volver a tu perfil</Button>
+        <Button variant="success">Volver a lista de personajes</Button>
       </Link>{" "}
     </div>
   );
 };
 
-export default BorrarTrasfondo;
+export default BorrarPersonaje;

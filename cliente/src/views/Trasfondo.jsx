@@ -13,13 +13,14 @@ const Trasfondo = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        let response = await axios.get(`/trasfondos/${trasfondoId}`, {
+        let response = await axios.get(`/trasfondos/find/${trasfondoId}`, {
           headers: {
             Authorization: localStorage.getItem("jwt_token"),
           },
         });
 
         setTrasfondo(response.data.trasfondo);
+        console.log(response.data)
       } catch (err) {
         console.log(err);
       }
@@ -27,7 +28,7 @@ const Trasfondo = () => {
     getData();
   }, []);
 
-//ruta borrar trasfondo. OJOCUIDAO
+//borrar trasfondo. OJOCUIDAO
 
 
 
@@ -38,7 +39,7 @@ const Trasfondo = () => {
   const content = () => {
     return (
       <div>
-        <Link to={`/MisPersonajes/TrasfondoSetup/${trasfondoId}`}>
+        <Link to={`/TrasfondoSetup/${trasfondoId}`}>
           <Button variant="success">Editar trasfondo</Button>
         </Link>{" "}
         <p>Titulo: {trasfondo.titulo}</p>
@@ -55,7 +56,7 @@ const Trasfondo = () => {
         })}
 
 
-<Link to={`/BorrarTrasfondo/${trasfondoId}`}>
+<Link to={`/MensajeBorrar/${trasfondoId}`}>
           <Button variant="success">Borrar trasfondo</Button>
         </Link>{" "}
       </div>

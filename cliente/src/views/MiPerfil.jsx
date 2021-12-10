@@ -22,7 +22,7 @@ const MiPerfil = () => {
           }
         );
         setPerfil(response.data.miPerfil);
-        // console.log(response.data)
+        console.log(response.data)
       } catch (err) {
         console.log(err);
       }
@@ -33,7 +33,20 @@ const MiPerfil = () => {
 const content =() =>{
   return(
     <div>
-    <h3>Tu perfil</h3> <hr />
+<hr />
+    <Link to={`/MisPersonajes/${perfil._id}`}>
+        <Button variant="success">Personajes</Button>
+      </Link>{" "}
+
+    <Link to={"/Recursos"}>
+      <Button variant="success">Recursos</Button>
+    </Link>{" "}
+
+      <Link to={`${perfil._id}`}>
+      <Button variant="success">Editar perfil</Button>
+    </Link>{" "}
+
+    <h4>Bienvenid@ {perfil.nick}</h4> <hr />
     
     <div> <p>Nick: {perfil.nick}</p></div>
     <div> <p>Correo: {perfil.correo}</p></div>
@@ -42,11 +55,10 @@ const content =() =>{
     <div> <p>Edad: {perfil.edad}</p></div>
     <div> <p>Sobre mi: {perfil.sobreMi}</p></div>
     <div> <p>Enlaces: {perfil.enlaces}</p></div>
+    {console.log(perfil._id)}
 
-    <hr />
-    <Link to={`${perfil._id}`}>
-      <Button variant="success">Editar perfil</Button>
-    </Link>{" "}
+
+
     
   </div>
 

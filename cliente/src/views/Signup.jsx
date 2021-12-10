@@ -3,10 +3,12 @@ import axios from "axios";
 import Accordion from "react-bootstrap/Accordion";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import { Navigate, useNavigate } from "react-router-dom";
+
 
 
 const Signup = () => {
-  //poner que el login lleve a la página de perfil de usuario.
+  let navigate = useNavigate();
   const [datos, setDatos] = useState({});
 
   const handleInputChange = (event) => {
@@ -34,6 +36,7 @@ const Signup = () => {
       if (response.data)
       console.log(response.data);
 
+  
     } catch (err) {
       console.log(err.response.data);
     }
@@ -55,8 +58,10 @@ const Signup = () => {
         },
       });
       console.log(response.data);
-    
       localStorage.setItem("jwt_token", response.data.token);
+
+      navigate("/MiPerfil")
+   
     } catch (err) {
       console.log(err.response.data);
     }

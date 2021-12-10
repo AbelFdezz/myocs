@@ -165,6 +165,12 @@ usuarioRouter.put("/updateUsuario/:id", checkToken, async (req, res) => {
 
     for (const key in req.body) {
       if (req.body[key]) {
+        if (key == "password") {
+          const hash = await bcrypt.hash(password, 10);
+          usuario.password = hash;
+          continue;
+        }
+
         usuario[key] = req.body[key];
       }
     }
@@ -173,7 +179,7 @@ usuarioRouter.put("/updateUsuario/:id", checkToken, async (req, res) => {
 
     return res.send({
       success: true,
-      message: `Los datos del usuario ${usuario.nick} han sido modificados correctamente.`
+      message: `Los datos del usuario ${usuario.nick} han sido modificados correctamente.`,
     });
   } catch (err) {
     console.log(err);
@@ -231,7 +237,7 @@ usuarioRouter.get("/find/miPerfil", checkToken, async (req, res) => {
   const { id } = req.usuario;
   try {
     const miPerfil = await Usuario.findById(id);
-    
+
     console.log(miPerfil);
 
     return res.json({

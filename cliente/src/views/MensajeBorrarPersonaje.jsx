@@ -1,39 +1,45 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import { useEffect, useState } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 
-const Personaje = () => {
-  let { PersonajeId } = useParams();
 
-  const [Personaje, setPersonaje] = useState(null);
-
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        let response = await axios.get(`/personajes/find/${PersonajeId}`, {
-          
-            headers: {
-              Authorization: localStorage.getItem("jwt_token")
-              
-            },
-          });
+const MensajeBorrarPersonaje = () => {
+    let { PersonajeId } = useParams();
   
-        setPersonaje(response.data.personajes);
+    const [Personaje, setPersonaje] = useState(null);
+    useEffect(() => {
+        const getData = async () => {
+          try {
+            let response = await axios.get(`/personajes/find/${PersonajeId}`, {
+              
+                headers: {
+                  Authorization: localStorage.getItem("jwt_token")
+                  
+                },
+              });
+      
+            setPersonaje(response.data.personajes);
+    
+          } catch (err) {
+            console.log(err);
+          }
+        };
+        getData();
+      }, []);
 
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getData();
-  }, []);
+    const content = () => {
+        return (
+          <div>
 
-const content = () =>{
- 
-return(
-<div>
-  <img  src= {Personaje.imagen} alt="Avatar" width= "100%" />
+<h3>¿Seguro que quieres borrar este personaje?</h3>
+<h4>Es la última vez que pregunto.</h4>
+<h5>El borrado será irreversible, verifica que es el que quieres borrar.</h5>
+<p>Con el borrado se procederá a la eliminación total del personaje, sus trasfondos, y su aparición en los trasfondos de otros personajes.</p>
+<hr />
+
+<img  src= {Personaje.imagen} alt="Avatar" width= "100%" />
   <Link to={`/MisPersonajes/${PersonajeId}/Setup`}>
       <Button variant="success">Editar personaje</Button>
     </Link>{" "}
@@ -57,7 +63,7 @@ return(
               </div>
           );
         })}
-              <Link to={`/NuevoTrasfondo/${Personaje._id}`}>
+              <Link to={`${Personaje._id}/NuevoTrasfondo`}>
         <Button variant="success">Añadir trasfondo</Button>
       </Link>{" "}
       <p>Trasfondos en los que aparece:</p>
@@ -131,19 +137,17 @@ return(
   <div> <p>Amigos:{Personaje.amigos}</p></div>
   <div> <p>¿Algo reseñable en su vecindario?:{Personaje.vecinos}</p></div>
   <div> Enemigos<p>{Personaje.enemigos}</p></div>
-  <Link to={`/MensajeBorrarPersonaje/${Personaje._id}`}>
-        <Button variant="success">Borrar personaje</Button>
-      </Link>{" "}
-  </div>
-  );
-  
-}
-
-return (
-  <div>
-{Personaje ? content() : "Cargando..."}
-</div>
-  )
-};
-
-export default Personaje;
+    
+   
+    <Link to={`/BorrarPersonaje/${Personaje._id}`}>
+                <Button variant="success" size="s">Borrar personaje
+                </Button>
+              </Link>
+       
+          </div>
+        );
+      };
+      return <div>{Personaje ? content() : "Cargando..."}</div>;
+    };
+    
+    export default MensajeBorrarPersonaje;

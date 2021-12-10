@@ -3,8 +3,10 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Fragment } from "react";
 import { useParams } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const MiPerfilSetup = () => {
+  let navigate = useNavigate();
   let { UsuarioId } = useParams();
 
   const [datos, setDatos] = useState({});
@@ -36,6 +38,8 @@ const MiPerfilSetup = () => {
         }
       );
       console.log(response);
+
+      navigate("/MiPerfil")
     } catch (error) {
       console.log(error.response);
     }

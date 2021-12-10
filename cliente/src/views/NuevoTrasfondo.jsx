@@ -5,9 +5,10 @@ import axios from "axios";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import {useParams} from "react-router"
 import { Fragment } from "react";
-
+import { Navigate, useNavigate } from "react-router-dom";
 
 const NuevoTrasfondo = () => {
+  let navigate = useNavigate();
   let { PersonajeId } = useParams();
 
     const [datos, setDatos] = useState({
@@ -40,6 +41,7 @@ const NuevoTrasfondo = () => {
           
           });
           console.log(response);
+             navigate("/MisPersonajes/`${UsuarioId}`")
         } catch (error) {
           console.log(error.response);
           // console.log(err.response.data);

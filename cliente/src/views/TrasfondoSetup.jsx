@@ -1,13 +1,13 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { Fragment } from "react";
 import { useParams } from "react-router-dom";
-import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import  FloatingLabel  from "react-bootstrap/FloatingLabel";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const TrasfondoSetup = () => {
+  let navigate = useNavigate();
     let { TrasfondoId } = useParams();
   
     const [datos, setDatos] = useState({});
@@ -39,6 +39,7 @@ const TrasfondoSetup = () => {
           }
         );
         console.log(response);
+        navigate("/MiPerfil")
       } catch (error) {
         console.log(error.response);
       }

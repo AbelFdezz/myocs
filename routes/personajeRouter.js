@@ -205,7 +205,7 @@ personajeRouter.get("/", async (req, res) => {
   }
 });
 
-personajeRouter.delete("/find/:id/delete", checkToken, async (req, res) => {
+personajeRouter.delete("/delete/:id", checkToken, async (req, res) => {
   try {
     const { id } = req.params;
     let personaje = await Personaje.findById(id);

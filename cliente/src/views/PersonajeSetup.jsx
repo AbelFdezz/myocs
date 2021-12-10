@@ -1,11 +1,12 @@
 import axios from "axios";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { Fragment } from "react";
 import { useParams } from "react-router-dom";
 import Form from "react-bootstrap/Form";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const PersonajeSetup = () => {
+  let navigate = useNavigate();
   let { PersonajeId } = useParams();
 
   const [datos, setDatos] = useState({});
@@ -14,6 +15,14 @@ const PersonajeSetup = () => {
     setDatos({
       ...datos,
       [event2.target.name]: event2.target.value,
+    });
+  };
+
+  const handleInputChangeSelect = (event) => {
+    console.log(event);
+    setDatos({
+      ...datos,
+      juego: event.target.value,
     });
   };
 
@@ -44,6 +53,8 @@ const PersonajeSetup = () => {
         }
       );
       console.log(response);
+      
+      navigate("/MiPerfil")
     } catch (error) {
       console.log(error.response);
     }
@@ -75,10 +86,52 @@ const PersonajeSetup = () => {
   };
 
 
+  const [juegos, setJuegos] = useState(null);
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        let response = await axios.get("/juegos", {
+          headers: {
+            Authorization: localStorage.getItem("jwt_token"),
+          },
+        });
+        setJuegos(response.data.juegos);
+   
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getData();
+  }, []);
+  const [personajeValues, setPersonajeValues] = useState({});
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        let response = await axios.get(`/personajes/find/${PersonajeId}`, {
+          
+            headers: {
+              Authorization: localStorage.getItem("jwt_token")
+              
+            },
+          });
+  
+        setPersonajeValues(response.data.personajes);
+
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getData();
+  }, []);
+
+
+  const content = () => {
 
   return (
     <Fragment>
-      <h2>Editar COÑO personaje</h2>
+      <h2>Editar personaje</h2>
+   
 
       <form className="row" onSubmit={enviarFoto}>
       <div className="col-md-3">
@@ -109,29 +162,31 @@ const PersonajeSetup = () => {
 
 
 
-
+{console.log(personajeValues)}
       <form className="row" onSubmit={enviarPersonaje}>
         <div className="col-md-3">
           <input //nombre
             type="text"
             name="nombre"
-            placeholder="nombre"
+            placeholder={personajeValues.nombre}
             className="form-control"
             onChange={handleInputChange}
           ></input>
 
-          <input //juego
-            type="text"
-            name="juego"
-            placeholder="juego"
-            className="form-control"
-            onChange={handleInputChange}
-          ></input>
+<Form.Select aria-label="Default select example" name="juego" onChange={handleInputChange}>
+        <option>Elige tu juego</option>
 
+ {juegos.map ((game, i) => {
+          return (
+                <option key={i} name="juego" value={game._id}>{game.nombre}</option>
+          );
+        })} 
+
+  </Form.Select> 
           <input //detallesJuego
             type="text"
             name="detallesJuego"
-            placeholder="Concreta características del juego"
+            placeholder={personajeValues.detallesJuego}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -139,7 +194,7 @@ const PersonajeSetup = () => {
           <input //estado
             type="text"
             name="estado"
-            placeholder="Estado: Jugando? a qué jugó?, Murió?"
+            placeholder={personajeValues.estado}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -147,37 +202,15 @@ const PersonajeSetup = () => {
           <input //autor
             type="text"
             name="autor"
-            placeholder="Autor"
+            placeholder={personajeValues.autor}
             className="form-control"
             onChange={handleInputChange}
           ></input>
-
-          <input //propietario: eq.params? id del logeado. pensarlo más adelante
-            type="text"
-            name="propietario"
-            placeholder="Propietario"
-            className="form-control"
-            onChange={handleInputChange}
-          ></input>
-
-          {/* <Form.Label>Imagen</Form.Label>
-          <Form.Control //FOTO
-            type="file"
-            size="sm"
-            name="imagen"
-            className="form-control"
-            onChange={(event2) => {
-              setDatos({
-                ...datos,
-                imagen: event2.target.files[0],
-              });
-            }}
-          /> */}
 
           <input //edad
             type="number"
             name="edad"
-            placeholder="Edad"
+            placeholder={personajeValues.edad}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -185,7 +218,7 @@ const PersonajeSetup = () => {
           <input //genero
             type="text"
             name="genero"
-            placeholder="Género"
+            placeholder={personajeValues.genero}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -193,7 +226,7 @@ const PersonajeSetup = () => {
           <input //idiomas
             type="text"
             name="idiomas"
-            placeholder="Idiomas"
+            placeholder={personajeValues.idiomas}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -201,7 +234,7 @@ const PersonajeSetup = () => {
           <input //lugarNacimiento
             type="text"
             name="lugarNacimiento"
-            placeholder="Lugar de nacimiento"
+            placeholder={personajeValues.lugarNacimiento}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -209,7 +242,7 @@ const PersonajeSetup = () => {
           <input //lugarResidencia
             type="text"
             name="lugarResidencia"
-            placeholder="Lugar de residencia"
+            placeholder={personajeValues.lugarNacimiento}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -217,7 +250,7 @@ const PersonajeSetup = () => {
           <input //peso
             type="text"
             name="peso"
-            placeholder="Peso"
+            placeholder={personajeValues.peso}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -225,7 +258,7 @@ const PersonajeSetup = () => {
           <input //raza
             type="text"
             name="raza"
-            placeholder="Raza"
+            placeholder={personajeValues.raza}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -233,7 +266,7 @@ const PersonajeSetup = () => {
           <input //colorOjos
             type="text"
             name="colorOjos"
-            placeholder="Color de ojos"
+            placeholder={personajeValues.colorOjos}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -241,7 +274,7 @@ const PersonajeSetup = () => {
           <input //colorPelo
             type="text"
             name="colorPelo"
-            placeholder="Color del pelo"
+            placeholder={personajeValues.colorPelo}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -249,7 +282,7 @@ const PersonajeSetup = () => {
           <input //colorPiel
             type="text"
             name="colorPiel"
-            placeholder="Color de piel"
+            placeholder={personajeValues.colorPiel}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -257,7 +290,7 @@ const PersonajeSetup = () => {
           <input //gafas
             type="text"
             name="gafas"
-            placeholder="Gafas ? descripción si las tiene"
+            placeholder={personajeValues.gafas}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -265,7 +298,7 @@ const PersonajeSetup = () => {
           <input //
             type="text"
             name="lentillas"
-            placeholder="Lentillas?"
+            placeholder={personajeValues.lentillas}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -273,7 +306,7 @@ const PersonajeSetup = () => {
           <input //formaCara
             type="text"
             name="formaCara"
-            placeholder="Forma de la cara"
+            placeholder={personajeValues.formaCara}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -281,7 +314,7 @@ const PersonajeSetup = () => {
           <input //rasgosDistintivos
             type="text"
             name="rasgosDistintivos"
-            placeholder="Rasgos distintivos"
+            placeholder={personajeValues.rasgosDistintivos}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -289,7 +322,7 @@ const PersonajeSetup = () => {
           <input //estiloVestimenta
             type="text"
             name="estiloVestimenta"
-            placeholder="Forma de vestir"
+            placeholder={personajeValues.estiloVestimenta}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -297,7 +330,7 @@ const PersonajeSetup = () => {
           <input //habitos
             type="text"
             name="habitos"
-            placeholder="Hábitos"
+            placeholder={personajeValues.habitos}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -305,7 +338,7 @@ const PersonajeSetup = () => {
           <input //aficiones
             type="text"
             name="aficiones"
-            placeholder="Aficiones"
+            placeholder={personajeValues.aficiones}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -313,7 +346,7 @@ const PersonajeSetup = () => {
           <input //refranFavorito
             type="text"
             name="refranFavorito"
-            placeholder="Refrán favorito"
+            placeholder={personajeValues.refranFavorito}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -321,7 +354,7 @@ const PersonajeSetup = () => {
           <input //formahablar
             type="text"
             name="formaHablar"
-            placeholder="Forma de hablar"
+            placeholder={personajeValues.formaHablar}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -329,7 +362,7 @@ const PersonajeSetup = () => {
           <input //enfermedades
             type="text"
             name="enfermedades"
-            placeholder="Enfermedades"
+            placeholder={personajeValues.enfermedades}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -337,7 +370,7 @@ const PersonajeSetup = () => {
           <input //alergias
             type="text"
             name="alergias"
-            placeholder="Alergias"
+            placeholder={personajeValues.alergias}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -345,7 +378,7 @@ const PersonajeSetup = () => {
           <input //minusvalías
             type="text"
             name="minusvalias"
-            placeholder="Minusvalías"
+            placeholder={personajeValues.minusvalias}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -353,7 +386,7 @@ const PersonajeSetup = () => {
           <input //socioeconomiaPeque
             type="text"
             name="socioeconomiaPeque"
-            placeholder="Socioeconomía en su infancia"
+            placeholder={personajeValues.socioeconomiaPeque}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -361,7 +394,7 @@ const PersonajeSetup = () => {
           <input //socioeconomiaActual
             type="text"
             name="socioeconomiaActual"
-            placeholder="Socioeconomía en la actualidad"
+            placeholder={personajeValues.socioeconomiaActual}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -369,7 +402,7 @@ const PersonajeSetup = () => {
           <input //manias
             type="text"
             name="manias"
-            placeholder="Manías"
+            placeholder={personajeValues.manias}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -377,7 +410,7 @@ const PersonajeSetup = () => {
           <input //tics
             type="text"
             name="tics"
-            placeholder="Tics"
+            placeholder={personajeValues.tics}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -385,7 +418,7 @@ const PersonajeSetup = () => {
           <input //estudios
             type="text"
             name="estudios"
-            placeholder="Estudios"
+            placeholder={personajeValues.estudios}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -393,7 +426,7 @@ const PersonajeSetup = () => {
           <input //trabajo
             type="text"
             name="trabajo"
-            placeholder="Trabajo"
+            placeholder={personajeValues.trabajo}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -401,7 +434,7 @@ const PersonajeSetup = () => {
           <input //mascotas
             type="text"
             name="mascotas"
-            placeholder="Mascotas"
+            placeholder={personajeValues.mascotas}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -409,7 +442,7 @@ const PersonajeSetup = () => {
           <input //monturas
             type="text"
             name="monturas"
-            placeholder="Monturas"
+            placeholder={personajeValues.monturas}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -417,7 +450,7 @@ const PersonajeSetup = () => {
           <input //mayorDefecto
             type="text"
             name="mayorDefecto"
-            placeholder="Mayor defecto"
+            placeholder={personajeValues.mayorDefecto}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -425,7 +458,7 @@ const PersonajeSetup = () => {
           <input //mayorVirtud
             type="text"
             name="mayorVirtud"
-            placeholder="Mayor virtud"
+            placeholder={personajeValues.mayorVirtud}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -433,7 +466,7 @@ const PersonajeSetup = () => {
           <input //mayorSecreto
             type="text"
             name="mayorSecreto"
-            placeholder="Mayor secreto"
+            placeholder={personajeValues.mayorSecreto}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -441,7 +474,7 @@ const PersonajeSetup = () => {
           <input //metasLargoPlazo
             type="text"
             name="metasLargoPlazo"
-            placeholder="Metas a largo plazo"
+            placeholder={personajeValues.metasLargoPlazo}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -449,7 +482,7 @@ const PersonajeSetup = () => {
           <input //loQueMasImporta
             type="text"
             name="loQueMasImporta"
-            placeholder="Lo que más le importa"
+            placeholder={personajeValues.loQueMasImporta}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -457,7 +490,7 @@ const PersonajeSetup = () => {
           <input //puntoFuerte
             type="text"
             name="puntoFuerte"
-            placeholder="Su punto fuerte"
+            placeholder={personajeValues.puntoFuerte}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -465,7 +498,7 @@ const PersonajeSetup = () => {
           <input //puntoDebil
             type="text"
             name="puntoDebil"
-            placeholder="Su punto débil"
+            placeholder={personajeValues.puntoDebil}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -473,7 +506,7 @@ const PersonajeSetup = () => {
           <input //manejoIra
             type="number"
             name="ManejoIra"
-            placeholder="Manejo de la ira. (0/10)"
+            placeholder={personajeValues.manejoIra}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -481,7 +514,7 @@ const PersonajeSetup = () => {
           <input //manejotristeza
             type="number"
             name="manejoTristeza"
-            placeholder="Manejo de la tristeza. (0/10)"
+            placeholder={personajeValues.manejoTristeza}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -489,7 +522,7 @@ const PersonajeSetup = () => {
           <input //ManejoConflictos
             type="number"
             name="manejoConflictos"
-            placeholder="Manejo de conflictos. (0/10)"
+            placeholder={personajeValues.manejoConflictos}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -497,7 +530,7 @@ const PersonajeSetup = () => {
           <input //adaptaciónCambios
             type="number"
             name="adaptacionCambios"
-            placeholder="Adaptación a los cambios (0/10)"
+            placeholder={personajeValues.adaptacionCambios}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -505,7 +538,7 @@ const PersonajeSetup = () => {
           <input //adaptacionPerdidas
             type="number"
             name="adaptacionPerdidas"
-            placeholder="Adaptación a las pérdidas (0/10)"
+            placeholder={personajeValues.adaptacionPerdidas}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -513,7 +546,7 @@ const PersonajeSetup = () => {
           <input //motivaciones
             type="text"
             name="motivaciones"
-            placeholder="Motivaciones en la vida"
+            placeholder={personajeValues.motivaciones}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -521,7 +554,7 @@ const PersonajeSetup = () => {
           <input //miedos
             type="text"
             name="miedos"
-            placeholder="Miedos"
+            placeholder={personajeValues.miedos}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -529,7 +562,7 @@ const PersonajeSetup = () => {
           <input //queLeHaceFeliz
             type="text"
             name="queLeHaceFeliz"
-            placeholder="Qué le hace felíz?"
+            placeholder={personajeValues.queLeHaceFeliz}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -537,7 +570,7 @@ const PersonajeSetup = () => {
           <input //nivelEmpatia
             type="number"
             name="nivelEmpatia"
-            placeholder="Nivel de empatía (0/10)"
+            placeholder={personajeValues.nivelEmpatia}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -545,15 +578,15 @@ const PersonajeSetup = () => {
           <input //religion
             type="text"
             name="religion"
-            placeholder="Religión"
+            placeholder={personajeValues.religion}
             className="form-control"
             onChange={handleInputChange}
           ></input>
 
-          <input //creenciasEspirituales o Nivel de espiritualidad
+          <input //creenciasEspirituales
             type="number"
             name="creenciasEspirituales"
-            placeholder="Nivel de fe. (0/10)"
+            placeholder={personajeValues.creenciasEspirituales}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -561,7 +594,7 @@ const PersonajeSetup = () => {
           <input //padre
             type="text"
             name="padre"
-            placeholder="Quién es/fue su padre?"
+            placeholder={personajeValues.padre}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -569,7 +602,7 @@ const PersonajeSetup = () => {
           <input //madre
             type="text"
             name="madre"
-            placeholder="Quién es/fue su madre?"
+            placeholder={personajeValues.madre}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -577,7 +610,7 @@ const PersonajeSetup = () => {
           <input //hermanos
             type="text"
             name="hermanos"
-            placeholder="¿Tiene hermanos? ¡Cuenta, cuenta!"
+            placeholder={personajeValues.hermanos}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -585,7 +618,7 @@ const PersonajeSetup = () => {
           <input //pareja
             type="text"
             name="pareja"
-            placeholder="Situación sentimental"
+            placeholder={personajeValues.pareja}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -593,7 +626,7 @@ const PersonajeSetup = () => {
           <input //hijos
             type="text"
             name="hijos"
-            placeholder="Descendencia"
+            placeholder={personajeValues.hijos}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -601,7 +634,7 @@ const PersonajeSetup = () => {
           <input //amigos
             type="text"
             name="amigos"
-            placeholder="Amistades"
+            placeholder={personajeValues.amistades}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -609,7 +642,7 @@ const PersonajeSetup = () => {
           <input //vecinos
             type="text"
             name="vecinos"
-            placeholder="¿Algo reseñable en su vecindario?"
+            placeholder={personajeValues.vecinos}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -617,7 +650,7 @@ const PersonajeSetup = () => {
           <input //enemigos
             type="text"
             name="enemigos"
-            placeholder="Enemigos"
+            placeholder={personajeValues.enemigos}
             className="form-control"
             onChange={handleInputChange}
           ></input>
@@ -634,6 +667,10 @@ const PersonajeSetup = () => {
       </form>
     </Fragment>
   );
+
+
+};
+return <div>{juegos ? content() : "Cargando..."}</div>;
 };
 
 export default PersonajeSetup;
