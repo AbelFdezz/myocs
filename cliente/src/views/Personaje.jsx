@@ -1,3 +1,4 @@
+
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
@@ -131,6 +132,7 @@ return(
   <div> <p>Amigos:{Personaje.amigos}</p></div>
   <div> <p>¿Algo reseñable en su vecindario?:{Personaje.vecinos}</p></div>
   <div> Enemigos<p>{Personaje.enemigos}</p></div>
+  
   <Link to={`/MensajeBorrarPersonaje/${Personaje._id}`}>
         <Button variant="success">Borrar personaje</Button>
       </Link>{" "}

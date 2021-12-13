@@ -91,6 +91,16 @@ trasfondoRouter.delete("/delete/:id", checkToken, async (req, res) => {
       });
     }
 
+
+
+    
+    // if (!trasfondoBuscado.propietario.equals(req.usuario.id)) {
+    //   return res.status(400).json({
+    //     success: false,
+    //     message: "No puedes borrar algo que no es tuyo. Un poquito de por favor!",
+    //   });
+    // }
+
     let personajeBuscado = await Personaje.findById(trasfondoBuscado.personaje);
 
     let index = personajeBuscado.trasfondo.indexOf(id);

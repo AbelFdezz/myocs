@@ -222,7 +222,7 @@ personajeRouter.delete("/delete/:id", checkToken, async (req, res) => {
     if (!personaje.propietario.equals(req.usuario.id)) {
       return res.status(400).json({
         success: false,
-        message: "No puedes borrar un personaje que no es tuyo.",
+        message: "No puedes borrar algo que no es tuyo. Un poquito de por favor!",
       });
     }
 
@@ -499,7 +499,7 @@ personajeRouter.get("/find/:id", async (req, res) => {
       .populate("propietario", "nick")
       .populate("trasfondo", "titulo")
       .populate("otrosTrasfondos", "titulo");
-      console.log(personajes)
+  
 
     return res.json({
       success: true,

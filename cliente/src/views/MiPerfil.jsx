@@ -1,28 +1,20 @@
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 
-
-
 const MiPerfil = () => {
-  
   const [perfil, setPerfil] = useState([]);
 
   useEffect(() => {
     const getData = async () => {
       try {
-        let response = await axios(
-          "/usuarios/find/miPerfil",
-          {
-            headers: {
-              Authorization: localStorage.getItem("jwt_token")
-              
-            },
-          }
-        );
+        let response = await axios("/usuarios/find/miPerfil", {
+          headers: {
+            Authorization: localStorage.getItem("jwt_token"),
+          },
+        });
         setPerfil(response.data.miPerfil);
-        console.log(response.data)
       } catch (err) {
         console.log(err);
       }
@@ -30,52 +22,34 @@ const MiPerfil = () => {
     getData();
   }, []);
 
-const content =() =>{
-  return(
-    <div>
-<hr />
-    <Link to={`/MisPersonajes/${perfil._id}`}>
-        <Button variant="success">Personajes</Button>
-      </Link>{" "}
+  const content = () => {
+    return (
+      <div className="container">
+        <h5>Bienvenid@ {perfil.nick}</h5>
+        <div className="containerComienza d-flex justify-content-around mb-4">
+          <Link to={`/MisPersonajes/${perfil._id}`}>
+            <Button variant="success">Personajes</Button>
+          </Link>{" "}
+          <Link to={"/Recursos"}>
+            <Button variant="success">Recursos</Button>
+          </Link>{" "}
+          <Link to={`${perfil._id}`}>
+            <Button variant="success">Tus datos</Button>
+          </Link>{" "}
+        </div>
 
-    <Link to={"/Recursos"}>
-      <Button variant="success">Recursos</Button>
-    </Link>{" "}
-
-      <Link to={`${perfil._id}`}>
-      <Button variant="success">Editar perfil</Button>
-    </Link>{" "}
-
-    <h4>Bienvenid@ {perfil.nick}</h4> <hr />
-    
-    <div> <p>Nick: {perfil.nick}</p></div>
-    <div> <p>Correo: {perfil.correo}</p></div>
-    <div> <p>Nombre: {perfil.nombreReal}</p></div>
-    <div> <p>Pronombres: {perfil.pronombres}</p></div>
-    <div> <p>Edad: {perfil.edad}</p></div>
-    <div> <p>Sobre mi: {perfil.sobreMi}</p></div>
-    <div> <p>Enlaces: {perfil.enlaces}</p></div>
-    {console.log(perfil._id)}
-
-
-
-    
-  </div>
-
-
-  )
-}
-
-  return (
-
-<div>
-{MiPerfil ? content() : "Cargando..."}
-
-
-
-
-</div>
-  );
+        <div className="containerPerfil">
+          <p>Alias: <br/>{perfil.nick}</p>
+          <p>Correo: <br/>{perfil.correo}</p>
+          <p>Nombre: <br/>{perfil.nombreReal}</p>
+          <p>Pronombres: {perfil.pronombres}</p>
+          <p>Edad: {perfil.edad}</p>
+          <p>Sobre mi: <br/> {perfil.sobreMi}</p>
+          <p>Enlaces: <br/> {perfil.enlaces}</p>
+        </div>
+      </div>
+    );
+  };
+  return <div>{MiPerfil ? content() : "Cargando..."}</div>;
 };
-
 export default MiPerfil;

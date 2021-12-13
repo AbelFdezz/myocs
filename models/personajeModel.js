@@ -8,7 +8,7 @@ const personajeSchema = new Schema({
   estado: { type: String },
   autor: { type: String },
   propietario: { type: mongoose.Types.ObjectId, ref: "Usuario", required: true },
-  imagen: { type: String },
+  imagen: { type: String, required: true },
   cloudinary_id: { type: String },
   trasfondo: [{ type: mongoose.Types.ObjectId, ref: "Trasfondo" }],
   otrosTrasfondos:[{  type: mongoose.Types.ObjectId, ref: "Trasfondo" }],

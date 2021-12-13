@@ -4,14 +4,11 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
 import {useParams} from "react-router"
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const NuevoPersonaje = () => {
   let navigate = useNavigate();
   let { UsuarioId } = useParams();
-  console.log(UsuarioId)
-
-
   const [datos, setDatos] = useState({
 
     propietario: UsuarioId
@@ -21,13 +18,6 @@ const NuevoPersonaje = () => {
     setDatos({
       ...datos,
       [event.target.name]: event.target.value,
-    });
-  };
-  const handleInputChangeSelect = (event) => {
-    console.log(event);
-    setDatos({
-      ...datos,
-      juego: event.target.value,
     });
   };
 

@@ -19,9 +19,8 @@ import TrasfondoSetup from "./views/TrasfondoSetup"
 import PersonajeSetup from "./views/PersonajeSetup"
 import MensajeBorrar from "./views/MensajeBorrar"
 import MensajeBorrarPersonaje from "./views/MensajeBorrarPersonaje"
-import BorrarTrasfondo from "./views/BorrarTrasfondo"
 import BorrarPersonaje from "./views/BorrarPersonaje"
-
+import BorrarPersonajeFail from "./views/BorrarPersonajeFail"
 ReactDOM.render(
   <BrowserRouter>
     <Routes>
@@ -40,8 +39,8 @@ ReactDOM.render(
         <Route exact path="/NuevoTrasfondo/:PersonajeId" element={<NuevoTrasfondo />} /> 
         <Route exact path="/MensajeBorrar/:trasfondoId" element={<MensajeBorrar />} />
         <Route exact path="/MensajeBorrarPersonaje/:PersonajeId" element={<MensajeBorrarPersonaje />} />
-        <Route exact path="/BorrarTrasfondo/:trasfondoId" element={<BorrarTrasfondo />} />
         <Route exact path="/BorrarPersonaje/:PersonajeId" element={<BorrarPersonaje />} />
+        <Route  path="/BorrarPersonajeFail" element={<BorrarPersonajeFail />} />
         <Route path="/Recursos" element={<Recursos />} />
       </Route>
     </Routes>

@@ -3,8 +3,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
+import { useNavigate } from "react-router-dom";
 
 const BorrarPersonaje = () => {
+  let navigate = useNavigate();
   let { PersonajeId } = useParams();
 
   const [Personaje, setPersonaje] = useState(null);
@@ -21,6 +23,7 @@ const BorrarPersonaje = () => {
         setPersonaje(response.data.Personaje);
         console.log()
       } catch (err) {
+        navigate("/BorrarPersonajeFail")
         console.log(err);
       }
     };

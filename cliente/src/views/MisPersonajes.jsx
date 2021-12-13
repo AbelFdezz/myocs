@@ -30,10 +30,6 @@ const MisPersonajes = () => {
     };
     getData();
   }, []);
-  console.log()
-//hacer un get de personajes y sacar el usuario por algun lado
-
-
 
 
   return (

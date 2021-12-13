@@ -1,6 +1,6 @@
 import React from "react";
 import Form from "react-bootstrap/Form";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import {useParams} from "react-router"
@@ -10,10 +10,34 @@ import { Navigate, useNavigate } from "react-router-dom";
 const NuevoTrasfondo = () => {
   let navigate = useNavigate();
   let { PersonajeId } = useParams();
+  const [perfil, setPerfil] = useState([]);
+
+//   useEffect(() => {
+//     const getData = async () => {
+//       try {
+//         let response = await axios(
+//           "/usuarios/find/miPerfil",
+//           {
+//             headers: {
+//               Authorization: localStorage.getItem("jwt_token")
+              
+//             },
+//           }
+//         );
+//         setPerfil(response.data.miPerfil._id);
+//       } catch (err) {
+//         console.log(err);
+//       }
+//     };
+//     getData();
+//   }, []);
+// console.log(perfil)
 
     const [datos, setDatos] = useState({
+      personaje: PersonajeId,
 
-      personaje: PersonajeId
+      
+
     });
   
     const handleInputChange = (event) => {
@@ -40,16 +64,18 @@ const NuevoTrasfondo = () => {
             },
           
           });
-          console.log(response);
+      
              navigate("/MisPersonajes/`${UsuarioId}`")
         } catch (error) {
+          navigate("/BorrarPersonajeFail")
           console.log(error.response);
-          // console.log(err.response.data);
+     
         }
       };
 
-      return (
-        <Fragment>
+      const content = () => {
+        return (
+          <Fragment>
           <h2>Nuevo trasfondo</h2>
     
           <form className="row" onSubmit={enviarTrasfondo}>
@@ -87,6 +113,8 @@ const NuevoTrasfondo = () => {
 
 
 
+
+
 <button
             className="btn btn-success"
             type="submit"
@@ -96,10 +124,13 @@ const NuevoTrasfondo = () => {
           </button>
           <br />
         </div>
+<hr />
 
       </form>
       </Fragment>
   );
+        }
+        return <div>{ perfil ? content() : "Cargando..."}</div>;
 };
 
 export default NuevoTrasfondo;

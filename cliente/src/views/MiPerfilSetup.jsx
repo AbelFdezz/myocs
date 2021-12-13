@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Fragment } from "react";
 import { useParams } from "react-router-dom";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const MiPerfilSetup = () => {
   let navigate = useNavigate();
@@ -46,8 +46,9 @@ const MiPerfilSetup = () => {
   };
 
   return (
-    <Fragment>
-      <h3>Mi perfil setup</h3> <hr />
+    <div className="container">
+    <Fragment  >
+      <h3>Edición de tu perfil</h3> <hr />
       <form className="row" onSubmit={enviarUsuario}>
         <div className="col-md-3">
           <input //usuario
@@ -126,6 +127,7 @@ const MiPerfilSetup = () => {
         </div>
       </form>
     </Fragment>
+    </div>
   );
 };
 

@@ -20,21 +20,13 @@ const Trasfondo = () => {
         });
 
         setTrasfondo(response.data.trasfondo);
-        console.log(response.data)
+        console.log(response.data);
       } catch (err) {
         console.log(err);
       }
     };
     getData();
   }, []);
-
-//borrar trasfondo. OJOCUIDAO
-
-
-
-
-
-
 
   const content = () => {
     return (
@@ -47,18 +39,14 @@ const Trasfondo = () => {
         {trasfondo.otrosPersonajes.map((otrosPersonajes, i) => {
           return (
             <div key={otrosPersonajes._id}>
-              <div className="d-grid gap-2 mb-3  col-lg-6 ">
-                <div key={i}>{otrosPersonajes.nombre} </div>
-              </div>
-              <p>Cuerpo: {trasfondo.cuerpo}</p>
+              <div key={i}>{otrosPersonajes.nombre} </div>
             </div>
           );
         })}
-
-
-<Link to={`/MensajeBorrar/${trasfondoId}`}>
-          <Button variant="success">Borrar trasfondo</Button>
-        </Link>{" "}
+        <div>
+          {" "}
+          <p>Cuerpo: {trasfondo.cuerpo}</p>
+        </div>
       </div>
     );
   };
