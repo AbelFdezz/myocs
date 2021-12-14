@@ -130,18 +130,18 @@ const PersonajeSetup = () => {
   const content = () => {
 
   return (
-    <Fragment>
+    <div className="container col-sm-12 col-md-6 col-lg-8 col-xl-6">
+    <Fragment >
       <h2>Editar personaje</h2>
-   
 
-      <form className="row" onSubmit={enviarFoto}>
-      <div className="col-md-3">
+      <form className="row d-flex justify-content-center center-block" onSubmit={enviarFoto}>
+      <div>
       <Form.Label>Imagen</Form.Label>
-          <Form.Control //FOTO
+          <Form.Control               //FOTO
             type="file"
             size="sm"
             name="imagen"
-            className="form-control"
+            className="form-control col-sm-10 col-md-6 col-lg-4 col-xl-3"
             onSubmit={enviarFoto}
             onChange={(event2) => {
               setDatos({
@@ -165,7 +165,7 @@ const PersonajeSetup = () => {
 
 
       <form className="row" onSubmit={enviarPersonaje}>
-        <div className="col-md-3">
+        <div>
           <input //nombre
             type="text"
             name="nombre"
@@ -174,11 +174,12 @@ const PersonajeSetup = () => {
             onChange={handleInputChange}
           ></input>
 
-<Form.Select aria-label="Default select example" name="juego" onChange={handleInputChange}>
+<Form.Select className="containerSelect text-center" aria-label="Default select example" name="juego" onChange={handleInputChange}>
         <option>Elige tu juego</option>
 
  {juegos.map ((game, i) => {
           return (
+            
                 <option key={i} name="juego" value={game._id}>{game.nombre}</option>
           );
         })} 
@@ -667,6 +668,7 @@ const PersonajeSetup = () => {
         </div>
       </form>
     </Fragment>
+    </div>
   );
 
 

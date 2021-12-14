@@ -71,7 +71,7 @@ usuarioRouter.post("/signup", async (req, res) => {
     const newUsuario = await usuario.save();
 
     const token = jwt.sign({ id: newUsuario._id }, JWT_SECRET, {
-      expiresIn: "336h",
+      expiresIn: "360h",
     });
 
     return res.status(201).json({

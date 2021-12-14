@@ -4,11 +4,11 @@ import Fotillo from "../arbolPortada.png";
 
 const MyOCS = () => {
   return (
-    <div className="container">
-      <h2>Bienvenid@ a MyOCS</h2>
+    <div className="container col-lg-8 col-xl-4">
+      <h2>Bienvenid@ a MyOC</h2>
       <img src={Fotillo} alt="Imagen" />
-      <p>My OCS es un repositorio donde podrás desarrollar un extenso perfil de tus personajes, desarrollar sus trasfondos y compartirlos con tu gente. Podrás escribir por capítulos, enlazar a los personajes que aparezcan en tus  historias, y mantener todo tu contenido bien organizado. ¿Te animas?</p>
-<div className="containerComienza d-flex justify-content-center">
+      <p>MyOC es un repositorio donde podrás desarrollar un extenso perfil de tus personajes, desarrollar sus trasfondos y compartirlos con tu gente. Podrás escribir por capítulos, enlazar a los personajes que aparezcan en tus  historias, y mantener todo tu contenido bien organizado. ¿Te animas?</p>
+<div className="containerComienza d-flex justify-content-center mb-5">
       <Link to="/Signup">
         <Button variant="success">Comienza</Button>
       </Link>

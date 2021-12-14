@@ -31,7 +31,7 @@ const BorrarPersonaje = () => {
   }, []);
 
   return (
-    <div>
+    <div className="container col-sm-12 col-md-8 col-lg-6 col-xl-4 text-center">
       <h2>Personaje borrado</h2>
       <hr />
       <Link to={`/MiPerfil`}>

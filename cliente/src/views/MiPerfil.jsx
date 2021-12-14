@@ -24,9 +24,9 @@ const MiPerfil = () => {
 
   const content = () => {
     return (
-      <div className="container">
+      <div className="container col-sm-12 col-md-8 col-lg-6 col-xl-4 text-center">
         <h5>Bienvenid@ {perfil.nick}</h5>
-        <div className="containerComienza d-flex justify-content-around mb-4">
+        <div className="containerComienza d-flex justify-content-around mb-3">
           <Link to={`/MisPersonajes/${perfil._id}`}>
             <Button variant="success">Personajes</Button>
           </Link>{" "}
@@ -40,12 +40,13 @@ const MiPerfil = () => {
 
         <div className="containerPerfil">
           <p>Alias: <br/>{perfil.nick}</p>
+  
           <p>Correo: <br/>{perfil.correo}</p>
           <p>Nombre: <br/>{perfil.nombreReal}</p>
           <p>Pronombres: {perfil.pronombres}</p>
-          <p>Edad: {perfil.edad}</p>
-          <p>Sobre mi: <br/> {perfil.sobreMi}</p>
-          <p>Enlaces: <br/> {perfil.enlaces}</p>
+          <p>Edad: {perfil.edad}</p> <hr />
+          <p>Sobre mi: <br/> {perfil.sobreMi}</p> <hr/>
+      
         </div>
       </div>
     );

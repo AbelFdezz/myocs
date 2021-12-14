@@ -17,29 +17,48 @@ import NuevoTrasfondo from "./views/NuevoTrasfondo";
 import Trasfondo from "./views/Trasfondo";
 import TrasfondoSetup from "./views/TrasfondoSetup"
 import PersonajeSetup from "./views/PersonajeSetup"
-import MensajeBorrar from "./views/MensajeBorrar"
 import MensajeBorrarPersonaje from "./views/MensajeBorrarPersonaje"
 import BorrarPersonaje from "./views/BorrarPersonaje"
 import BorrarPersonajeFail from "./views/BorrarPersonajeFail"
+import RequireAuth from "./views/RequireAuth"
+
+
+
 ReactDOM.render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />} >
         <Route index element={<MyOCS />} />
+        <Route element={<RequireAuth />}>
         <Route path="/MiPerfil" element={<MiPerfil />} />
+        </Route>
         <Route path="/MiPerfil/:UsuarioId" element={<MiPerfilSetup />} />
+
         <Route path="/Signup" element={<Signup />} />
         <Route path="/SobreNosotros" element={<SobreNosotros />} />
+        <Route element={<RequireAuth />}>
         <Route exact path="/MisPersonajes/:UsuarioId" element={<MisPersonajes />} />
+        </Route>
         <Route exact path="/MiPersonajes/:PersonajeId" element={<Personaje />} />
+        <Route element={<RequireAuth />}>
         <Route path="/NuevoPersonaje/:UsuarioId" element={<NuevoPersonaje />} />
+       </Route>
         <Route exact path="/MisPersonajes/Trasfondo/:trasfondoId/" element={<Trasfondo />} />
+        <Route element={<RequireAuth />}>
         <Route exact path="/MisPersonajes/:PersonajeId/Setup" element={<PersonajeSetup />} />
+        </Route>
+        <Route element={<RequireAuth />}>
         <Route exact path="/TrasfondoSetup/:TrasfondoId" element={<TrasfondoSetup />} />
+       </Route>
+       <Route element={<RequireAuth />}>
         <Route exact path="/NuevoTrasfondo/:PersonajeId" element={<NuevoTrasfondo />} /> 
-        <Route exact path="/MensajeBorrar/:trasfondoId" element={<MensajeBorrar />} />
+        </Route>
+       <Route element={<RequireAuth />}>
         <Route exact path="/MensajeBorrarPersonaje/:PersonajeId" element={<MensajeBorrarPersonaje />} />
+        </Route>
+        <Route element={<RequireAuth />}>
         <Route exact path="/BorrarPersonaje/:PersonajeId" element={<BorrarPersonaje />} />
+        </Route>
         <Route  path="/BorrarPersonajeFail" element={<BorrarPersonajeFail />} />
         <Route path="/Recursos" element={<Recursos />} />
       </Route>

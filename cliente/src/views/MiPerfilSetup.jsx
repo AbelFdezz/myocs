@@ -46,11 +46,11 @@ const MiPerfilSetup = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container col-sm-12 col-md-8 col-lg-6 col-xl-4 text-center">
     <Fragment  >
-      <h3>Edición de tu perfil</h3> <hr />
+      <h2>Edición de tu perfil</h2> <hr />
       <form className="row" onSubmit={enviarUsuario}>
-        <div className="col-md-3">
+        <div>
           <input //usuario
             type="text"
             name="nick"
@@ -108,14 +108,6 @@ const MiPerfilSetup = () => {
             onChange={handleInputChange}
           ></input>
 
-          <input //enlaces
-            type="textarea"
-            name="enlaces"
-            placeholder="Enlaces a tus redes"
-            className="form-control"
-            style={{ height: "120px" }}
-            onChange={handleInputChange}
-          ></input>
           <Link
             to="/MiPerfil"
             className="btn btn-success"

@@ -10,7 +10,9 @@ import { Navigate, useNavigate } from "react-router-dom";
 const Signup = () => {
   let navigate = useNavigate();
   const [datos, setDatos] = useState({});
-
+  function alerta() {
+    alert("Cuenta creada con éxito");
+  }
   const handleInputChange = (event) => {
     setDatos({
       ...datos,
@@ -36,9 +38,10 @@ const Signup = () => {
       if (response.data)
       console.log(response.data);
 
-  
+      alerta();
     } catch (err) {
       console.log(err.response.data);
+      alert(err.response.data.message)
     }
   };
 
@@ -61,31 +64,32 @@ const Signup = () => {
       localStorage.setItem("jwt_token", response.data.token);
 
       navigate("/MiPerfil")
-   
+
     } catch (err) {
       console.log(err.response.data);
+      alert(err.response.data.message)
     }
   };
 
   return (
-    <div>
+    <div className="container col-sm-12 col-md-8 col-lg-6 col-xl-4">
       <div
-        className="formulario row d-flex justify-content-center"
+        className="formulario text-center "
         onSubmit={hacerLogin}
       >
         <Accordion defaultActiveKey="0">
-          <Accordion.Item eventKey="0">
-            <Accordion.Header className="loginCorreo  col-lg-6">
+          <Accordion.Item eventKey="0" >
+            <Accordion.Header className="loginCorreo">
               Inicia sesión
             </Accordion.Header>
-            <Accordion.Body>
-              <Form>
+            <Accordion.Body className="acordeonbody">
+              <Form className="FormLogin justify-content-center">
                 <Form.Group
-                  className="loginCorreo col-lg-6"
+                  className="loginCorreo"
                   controlId="formBasicEmail"
                 >
                   <Form.Label>Escribe tu correo</Form.Label>
-                  <Form.Control
+                  <Form.Control className="containerLogin1 text-center"
                     type="email"
                     placeholder="MyOCS@correo.com"
                     name="correo"
@@ -95,13 +99,13 @@ const Signup = () => {
                 </Form.Group>
 
                 <Form.Group
-                  className="loginPassword col-lg-6"
+                  className="loginPassword"
                   controlId="formBasicPassword"
                 >
                   <Form.Label>Contraseña</Form.Label>
-                  <Form.Control
+                  <Form.Control className="containerLogin2 text-center"
                     type="password"
-                    placeholder="Que sea segura, camarada."
+                    placeholder="Que sea segura, eh?"
                     name="password"
                     onChange={handleInputChange}
                   />
@@ -119,22 +123,22 @@ const Signup = () => {
 
 
       <div
-        className="formulario2 row d-flex justify-content-center"
+        className="formulario2 mt-5 text-center variant="
         onSubmit={crearCuenta}
       >
         <Accordion defaultActiveKey="0">
           <Accordion.Item eventKey="1">
-            <Accordion.Header className="loginCorreo  col-lg-6">
+            <Accordion.Header className="loginCorreo">
               No tienes cuenta? Crea una
             </Accordion.Header>
             <Accordion.Body>
-              <Form>
+              <Form className="FormLogin justify-content-center">
                 <Form.Group
-                  className="signPassword col-lg-6"
+                  className="signPassword"
                   controlId="formBasicPassword2"
                 >
                   <Form.Label>Nombre de usuario</Form.Label>
-                  <Form.Control
+                  <Form.Control className="containerLogin3 text-center"
                     type="text"
                     name="nick"
                     onChange={handleInputChange}
@@ -142,22 +146,22 @@ const Signup = () => {
                 </Form.Group>
 
                 <Form.Group
-                  className="signCorreo col-lg-6"
+                  className="signCorreo"
                   controlId="formBasicEmail2"
                 >
                   <Form.Label>Escribe tu correo</Form.Label>
-                  <Form.Control type="email" placeholder="MyOCS@correo.com"  name="correo" onChange={handleInputChange} />
+                  <Form.Control className= "containerLogin2 text-center" type="email" placeholder="MyOCS@correo.com"  name="correo" onChange={handleInputChange} />
                   <Form.Text className="text-muted"></Form.Text>
                 </Form.Group>
 
                 <Form.Group
-                  className="signPassword col-lg-6"
+                  className="signPassword"
                   controlId="formBasicPassword3"
                 >
                   <Form.Label>Contraseña</Form.Label>
-                  <Form.Control
+                  <Form.Control className="containerLogin text-center"
                     type="password"
-                    placeholder="Que sea segura, camarada."  name="password" onChange={handleInputChange}
+                    placeholder="Que sea segura, ¿eh?"  name="password" onChange={handleInputChange}
                   />
                 </Form.Group>
 

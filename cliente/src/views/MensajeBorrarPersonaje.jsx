@@ -31,9 +31,9 @@ const MensajeBorrarPersonaje = () => {
 
     const content = () => {
         return (
-          <div>
+          <div  className="container col-sm-12 col-md-8 col-lg-6 col-xl-4">
 
-<h3>¿Seguro que quieres borrar este personaje?</h3>
+<h3>¿Seguro que quieres borrar a {Personaje.nombre}?</h3>
 <h4>Es la última vez que pregunto.</h4>
 <h5>El borrado será irreversible, verifica que es el que quieres borrar.</h5>
 <p>Con el borrado se procederá a la eliminación total del personaje, sus trasfondos, y su aparición en los trasfondos de otros personajes.</p>
@@ -43,6 +43,7 @@ const MensajeBorrarPersonaje = () => {
   <Link to={`/MisPersonajes/${PersonajeId}/Setup`}>
       <Button variant="success">Editar personaje</Button>
     </Link>{" "}
+    <hr />
   <div> <p>Nombre: {Personaje.nombre}</p></div>
   <div> <p>Autor: <br/>{Personaje.autor}</p></div>
   <div> <p>Propietario: <br/>{Personaje.propietario.nick}</p></div>
@@ -50,6 +51,7 @@ const MensajeBorrarPersonaje = () => {
   <div> <p>Tipo de partida: <br/> {Personaje.detallesJuego}</p></div>
   <div> <p>Estado: <br/>{Personaje.estado} </p></div>
 <p>Trasfondos:</p>
+
 {Personaje.trasfondo.map((trasfondo, i) => {
           return (
             <div key={trasfondo._id}>
@@ -66,6 +68,7 @@ const MensajeBorrarPersonaje = () => {
               <Link to={`${Personaje._id}/NuevoTrasfondo`}>
         <Button variant="success">Añadir trasfondo</Button>
       </Link>{" "}
+      <hr />
       <p>Trasfondos en los que aparece:</p>
 
       {Personaje.otrosTrasfondos.map((trasfondo, i) => {
@@ -81,7 +84,7 @@ const MensajeBorrarPersonaje = () => {
               </div>
           );
         })}
-
+<hr />
   <div> <p>Edad: {Personaje.edad}</p></div>
   <div> <p>Género: {Personaje.genero}</p></div>
   <div> <p>Idiomas: {Personaje.idiomas}</p></div>

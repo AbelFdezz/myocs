@@ -33,28 +33,32 @@ const MisPersonajes = () => {
 
 
   return (
-    <div>
-      <h2>Lista de personajes</h2>
-      <Link to={`/NuevoPersonaje/${UsuarioId}`}>
-        <Button variant="success">Nuevo personaje</Button>
-      </Link>{" "}
-      <hr />
+    <div className="container col-sm-12 col-md-6 col-lg-8 col-xl-6">
 
-      
+      <h2>Lista de personajes</h2>
+      <hr />
+      <div className="nuevopj d-flex justify-content-center mb-5">
+      <Link to={`/NuevoPersonaje/${UsuarioId}`}>
+        <Button  variant="success">Nuevo personaje</Button>
+      </Link>{" "}
+      </div>
+  
       {ListaPersonajes.map((personaje, i) => {
         return (
           <div key={personaje._id}>
-            <div className="d-grid gap-2 mb-3  col-lg-6 ">
+            <div className="container d-grid mb-3 ">
               <Link to={`/MiPersonajes/${personaje._id}`}>
-                <Button variant="success" size="lg">
+                <Button variant="success" size="lg" mb="-2">
                   <div key={i}>{personaje.nombre} </div>
                 </Button>
               </Link>
             </div>
           </div>
+          
         );
       })}
     </div>
+
   );
 };
 

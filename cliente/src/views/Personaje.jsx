@@ -4,9 +4,15 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 const Personaje = () => {
   let { PersonajeId } = useParams();
+  const url = window.location.href
+
+  function alerta() {
+    alert("URL copiada");
+  }
 
   const [Personaje, setPersonaje] = useState(null);
 
@@ -33,12 +39,20 @@ const Personaje = () => {
 const content = () =>{
  
 return(
-<div>
+<div className="container justify-content-center col-sm-12 col-md-8 col-lg-6 col-xl-5">
+ 
   <img  src= {Personaje.imagen} alt="Avatar" width= "100%" />
+  <div className="pj1 d-flex justify-content-around mt-3 mb-2">
   <Link to={`/MisPersonajes/${PersonajeId}/Setup`}>
       <Button variant="success">Editar personaje</Button>
     </Link>{" "}
-  <div> <p>Nombre: {Personaje.nombre}</p></div>
+   
+    <CopyToClipboard text={url}>
+    <Button variant="success" onClick={alerta}>Copiar URL</Button>
+  </CopyToClipboard>
+  </div>
+<div className="pj2 d-flex row justify-content-center">
+   <p>Nombre: {Personaje.nombre}</p>
   <div> <p>Autor: <br/>{Personaje.autor}</p></div>
   <div> <p>Propietario: <br/>{Personaje.propietario.nick}</p></div>
   <div> <p>Juego: {Personaje.juego.nombre}</p></div>
@@ -69,7 +83,7 @@ return(
               <div className="d-grid gap-2 mb-3  col-lg-6 ">
               <Link to={`/MisPersonajes/Trasfondo/${trasfondo._id}`}>
                 <Button variant="success" size="s">
-                <div key={i}>{trasfondo.titulo} </div>
+                <div>{trasfondo.titulo} </div>
                 </Button>
               </Link>
               </div>
@@ -136,6 +150,7 @@ return(
   <Link to={`/MensajeBorrarPersonaje/${Personaje._id}`}>
         <Button variant="success">Borrar personaje</Button>
       </Link>{" "}
+      </div>
   </div>
   );
   

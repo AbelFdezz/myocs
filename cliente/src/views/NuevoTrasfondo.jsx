@@ -12,32 +12,9 @@ const NuevoTrasfondo = () => {
   let { PersonajeId } = useParams();
   const [perfil, setPerfil] = useState([]);
 
-//   useEffect(() => {
-//     const getData = async () => {
-//       try {
-//         let response = await axios(
-//           "/usuarios/find/miPerfil",
-//           {
-//             headers: {
-//               Authorization: localStorage.getItem("jwt_token")
-              
-//             },
-//           }
-//         );
-//         setPerfil(response.data.miPerfil._id);
-//       } catch (err) {
-//         console.log(err);
-//       }
-//     };
-//     getData();
-//   }, []);
-// console.log(perfil)
 
     const [datos, setDatos] = useState({
       personaje: PersonajeId,
-
-      
-
     });
   
     const handleInputChange = (event) => {
@@ -60,42 +37,32 @@ const NuevoTrasfondo = () => {
           let response = await axios.post("/trasfondos", datos,  {
             headers: {
               Authorization: localStorage.getItem("jwt_token")
-              
             },
           
           });
-      
+
              navigate("/MisPersonajes/`${UsuarioId}`")
         } catch (error) {
-          navigate("/BorrarPersonajeFail")
           console.log(error.response);
+          navigate("/BorrarPersonajeFail")
      
         }
       };
 
       const content = () => {
         return (
+          <div className="container justify-content-center text-center col-sm-12 col-md-10 col-lg-8 col-xl-6">
           <Fragment>
           <h2>Nuevo trasfondo</h2>
-    
+
           <form className="row" onSubmit={enviarTrasfondo}>
-<div className="col-md-3">
+<div className="containerCuerpo justify-content-center">
             <Form.Label>Título:</Form.Label>
               <input //Título
                 type="text"
                 name="titulo"
                 placeholder=""
-                className="form-control"
-                onChange={handleInputChange}
-              ></input>
-
-
-<Form.Label>Personaje invitado:</Form.Label>
-              <input //personajes invitados
-                type="text"
-                name="otrosPersonajes"
-                placeholder=""
-                className="form-control"
+                className="form-control text-center"
                 onChange={handleInputChange}
               ></input>
 
@@ -105,8 +72,7 @@ const NuevoTrasfondo = () => {
     <Form.Control
       as="textarea"
       name="cuerpo"
-
-      style={{ height: '100px' }}
+      style={{ height: '250px' }}
       onChange={handleInputChange}
     />
   </FloatingLabel>
@@ -116,18 +82,19 @@ const NuevoTrasfondo = () => {
 
 
 <button
-            className="btn btn-success"
+            className="btn btn-success mb-4 mt-4"
             type="submit"
             onClick={enviarTrasfondo}
           >
             Enviar
           </button>
-          <br />
+       
         </div>
-<hr />
+
 
       </form>
       </Fragment>
+      </div>
   );
         }
         return <div>{ perfil ? content() : "Cargando..."}</div>;

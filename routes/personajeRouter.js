@@ -8,9 +8,7 @@ const Juego = require("../models/juegoModel");
 const Propietario = require("../models/usuarioModel");
 const Trasfondo = require("../models/trasfondoModel");
 
-personajeRouter.post(
-  "/",
-  upload.single("imagen"),
+personajeRouter.post( "/", upload.single("imagen"),
   checkToken,
   async (req, res) => {
 
@@ -368,7 +366,7 @@ personajeRouter.put("/update/:id", checkToken, async (req, res) => {
 personajeRouter.get("/nombre/:nombre", checkToken, async (req, res) => {
   try {
     const { nombre } = req.params;
-    const personajes = await Personaje.find({ nombre })
+    const personaje = await Personaje.findOne({ nombre })
       .populate("juego", "nombre")
       .populate("propietario", "nick")
       .populate("trasfondo", "titulo")
@@ -376,7 +374,7 @@ personajeRouter.get("/nombre/:nombre", checkToken, async (req, res) => {
 
     return res.json({
       success: true,
-      personajes,
+      personaje,
     });
   } catch (err) {
     console.log(err);

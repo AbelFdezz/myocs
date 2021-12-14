@@ -30,24 +30,36 @@ const Trasfondo = () => {
 
   const content = () => {
     return (
-      <div>
+      <div className="container justify-content-center col-sm-12 col-lg-6">
+
+        <div >
         <Link to={`/TrasfondoSetup/${trasfondoId}`}>
-          <Button variant="success">Editar trasfondo</Button>
+          <Button variant="success" size="sm mb-3">Editar trasfondo</Button>
         </Link>{" "}
-        <p>Titulo: {trasfondo.titulo}</p>
-        <p>Personajes invitados:</p>
+
+        </div>
+        <h2>Título: </h2>
+          <p> {trasfondo.titulo}</p>
+        <h2>Personajes invitados:</h2>
         {trasfondo.otrosPersonajes.map((otrosPersonajes, i) => {
           return (
             <div key={otrosPersonajes._id}>
-              <div key={i}>{otrosPersonajes.nombre} </div>
+                 <div className="container d-grid mb-3 ">
+                 <Link to={`/MiPersonajes/${otrosPersonajes._id}`}>
+                <Button variant="success" size="md">
+                  <div key={i}>{otrosPersonajes.nombre} </div>
+                </Button>
+              </Link>
+            </div>
             </div>
           );
         })}
-        <div>
+    
           {" "}
-          <p>Cuerpo: {trasfondo.cuerpo}</p>
+         <h2>Cuerpo:</h2>
+          <p> {trasfondo.cuerpo}</p>
         </div>
-      </div>
+  
     );
   };
   return <div>{trasfondo ? content() : "Cargando..."}</div>;

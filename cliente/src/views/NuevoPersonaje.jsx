@@ -40,6 +40,7 @@ const NuevoPersonaje = () => {
       navigate("/MisPersonajes/`${UsuarioId}`")
     } catch (error) {
       console.log(error.response);
+      alert(error.data.message)
     }
   };
 
@@ -63,16 +64,17 @@ const NuevoPersonaje = () => {
   }, []);
   const content = () => {
     return (
+      <div className="container col-sm-12 col-md-6 col-lg-8 col-xl-6">
       <Fragment>
         <h2>Nuevo personaje</h2>
 
-        <form className="row" onSubmit={enviarPersonaje}>
-          <div className="col-md-3">
+        <form className="row d-flex justify-content-center center-block" onSubmit={enviarPersonaje}>
+     
             <input //nombre
               type="text"
               name="nombre"
               placeholder="nombre"
-              className="form-control"
+              className="form-control col-sm-10 col-md-6 col-lg-4 col-xl-3"
               onChange={handleInputChange}
             ></input>
 
@@ -581,9 +583,10 @@ const NuevoPersonaje = () => {
               Enviar
             </button>
             <br />
-          </div>
+        
         </form>
       </Fragment>
+      </div>
     );
   };
 
