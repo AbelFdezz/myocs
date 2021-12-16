@@ -21,14 +21,19 @@ usuarioRouter.post("/signup", async (req, res) => {
       personajes,
     } = req.body;
 
-    if (
-      !nick ||
-      !password ||
-      !correo
-    ) {
+
+
+    if (!nick || !password || !correo) {
       return res.status(403).json({
         success: false,
         message: "Falta información. Revise los datos.",
+      });
+    }
+    const buscarUsuario = await Usuario.findOne({ nick });
+    if (buscarUsuario) {
+      return res.status(403).json({
+        sucess: false,
+        message: "Ya existe una cuenta vinculada con este nombre de usuario",
       });
     }
 
@@ -65,14 +70,13 @@ usuarioRouter.post("/signup", async (req, res) => {
     });
     const newUsuario = await usuario.save();
 
-    //creación de Token
     const token = jwt.sign({ id: newUsuario._id }, JWT_SECRET, {
-      expiresIn: "336h",
+      expiresIn: "360h",
     });
 
     return res.status(201).json({
       success: true,
-      trasfondo: newUsuario,
+      usuario: newUsuario,
       token,
     });
   } catch (err) {
@@ -114,8 +118,10 @@ usuarioRouter.post("/login", async (req, res) => {
       message: "Credenciales erróneas (password)",
     });
   }
-  //creación de Token
-  const token = jwt.sign({ id: usuario._id }, JWT_SECRET, { expiresIn: "24h" });
+
+  const token = jwt.sign({ id: usuario._id }, JWT_SECRET, {
+    expiresIn: "336h",
+  });
 
   return res.json({
     success: true,
@@ -123,8 +129,8 @@ usuarioRouter.post("/login", async (req, res) => {
   });
 });
 
-usuarioRouter.get("/", checkToken, async (req, res) => {
-  const { id } = req.usuario;
+usuarioRouter.get("/", async (req, res) => {
+  //const { id } = req.usuario; //poner cuando ponga el checktoken de vuelta
   try {
     const usuarios = await Usuario.find().populate("personajes", "nombre");
 
@@ -141,7 +147,7 @@ usuarioRouter.get("/", checkToken, async (req, res) => {
   }
 });
 
-usuarioRouter.put("/find/:id/update", checkToken, async (req, res) => {
+usuarioRouter.put("/updateUsuario/:id", checkToken, async (req, res) => {
   try {
     const { id } = req.params;
     let {
@@ -159,6 +165,12 @@ usuarioRouter.put("/find/:id/update", checkToken, async (req, res) => {
 
     for (const key in req.body) {
       if (req.body[key]) {
+        if (key == "password") {
+          const hash = await bcrypt.hash(password, 10);
+          usuario.password = hash;
+          continue;
+        }
+
         usuario[key] = req.body[key];
       }
     }
@@ -167,7 +179,7 @@ usuarioRouter.put("/find/:id/update", checkToken, async (req, res) => {
 
     return res.send({
       success: true,
-      message: `El nombre ha sido cambiado por ${usuario.nick}`,
+      message: `Los datos del usuario ${usuario.nick} han sido modificados correctamente.`,
     });
   } catch (err) {
     console.log(err);
@@ -181,6 +193,7 @@ usuarioRouter.put("/find/:id/update", checkToken, async (req, res) => {
 usuarioRouter.delete("/find/:id/delete", checkToken, async (req, res) => {
   try {
     const { id } = req.params;
+
     let usuario = await Usuario.findByIdAndDelete(id);
     return res.send({
       sucess: true,
@@ -194,4 +207,49 @@ usuarioRouter.delete("/find/:id/delete", checkToken, async (req, res) => {
     });
   }
 });
+
+//ruta para ver "mis personajes"
+usuarioRouter.get("/find/misPersonajes", checkToken, async (req, res) => {
+  const { id } = req.usuario;
+  try {
+    const misPersonajes = await Usuario.findById(id).populate({
+      path: "personajes",
+      select: "nombre",
+      //populate: { path: "personajes", select: "imagen" },
+    });
+    arrayPersonajes = misPersonajes.personajes;
+
+
+    return res.json({
+      success: true,
+      arrayPersonajes,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(400).json({
+      success: false,
+      message: err.message,
+    });
+  }
+});
+
+usuarioRouter.get("/find/miPerfil", checkToken, async (req, res) => {
+  const { id } = req.usuario;
+  try {
+    const miPerfil = await Usuario.findById(id);
+
+
+    return res.json({
+      success: true,
+      miPerfil,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(400).json({
+      success: false,
+      message: err.message,
+    });
+  }
+});
+
 module.exports = usuarioRouter;

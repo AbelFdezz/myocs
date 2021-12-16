@@ -2,21 +2,22 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const personajeSchema = new Schema({
-  nombre: { type: String, required: true },
+  nombre: { type: String, required: true, unique: true},
   juego: { type: mongoose.Types.ObjectId, ref: "Juego" },
   detallesJuego: { type: String },
   estado: { type: String },
   autor: { type: String },
-  propietario: { type: mongoose.Types.ObjectId, ref: "Usuario" },
-  imagen: { type: String },
+  propietario: { type: mongoose.Types.ObjectId, ref: "Usuario", required: true },
+  imagen: { type: String, required: true },
+  cloudinary_id: { type: String },
   trasfondo: [{ type: mongoose.Types.ObjectId, ref: "Trasfondo" }],
   otrosTrasfondos:[{  type: mongoose.Types.ObjectId, ref: "Trasfondo" }],
   edad: { type: Number },
   genero: { type: String },
   idiomas: { type: String },
   lugarNacimiento: { type: String },
-  lugarResidencia: { type: String }, //10
-  peso: { type: String },
+  lugarResidencia: { type: String }, 
+  peso: { type: String },       //15
   raza: { type: String },
   colorOjos: { type: String },
   colorPelo: { type: String },
@@ -25,17 +26,17 @@ const personajeSchema = new Schema({
   lentillas: { type: String },
   formaCara: { type: String },
   rasgosDistintivos: { type: String },
-  estiloVestimenta: { type: String }, //20
+  estiloVestimenta: { type: String },
   habitos: { type: String },
   aficiones: { type: String },
   refranFavorito: { type: String },
   formaHablar: { type: String },
   enfermedades: { type: String },
-  alergias: { type: String },
+  alergias: { type: String },   //30
   minusvalias: { type: String },
   socioeconomiaPeque: { type: String },
   socioeconomiaActual: { type: String },
-  manias: { type: String }, //30
+  manias: { type: String }, 
   tics: { type: String },
   estudios: { type: String },
   trabajo: { type: String },
@@ -45,8 +46,8 @@ const personajeSchema = new Schema({
   mayorVirtud: { type: String },
   mayorSecreto: { type: String },
   metasLargoPlazo: { type: String },
-  loQueMasImporta: { type: String }, //40
-  puntoFuerte: { type: String },
+  loQueMasImporta: { type: String }, 
+  puntoFuerte: { type: String },     //45
   puntoDebil: { type: String },
   manejoIra: { type: Number },
   manejoTristeza: { type: Number },
@@ -55,17 +56,17 @@ const personajeSchema = new Schema({
   adaptacionPerdidas: { type: Number },
   motivaciones: { type: String },
   miedos: { type: String },
-  queLeHaceFeliz: { type: String }, //50
+  queLeHaceFeliz: { type: String },    
   nivelEmpatia: { type: Number },
   religion: { type: String },
-  creenciasEspirituales: { type: String },
+  creenciasEspirituales: { type: Number },
   padre: { type: String },
   madre: { type: String },
-  hermanos: { type: String },
+  hermanos: { type: String },     //60
   pareja: { type: String },
   hijos: { type: String },
   amigos: { type: String },
   vecinos: { type: String },
-  enemigos: { type: String }, //61
+  enemigos: { type: String },      //65
 });
 module.exports = Personaje = mongoose.model("Personaje", personajeSchema);
