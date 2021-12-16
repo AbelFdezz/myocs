@@ -14,7 +14,7 @@ const BorrarPersonaje = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        let response = await axios.delete(`/personajes/delete/${PersonajeId}`, {
+        let response = await axios.delete(`/data/personajes/delete/${PersonajeId}`, {
           headers: {
             Authorization: localStorage.getItem("jwt_token"),
           },

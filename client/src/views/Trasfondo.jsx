@@ -13,7 +13,7 @@ const Trasfondo = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        let response = await axios.get(`/trasfondos/find/${trasfondoId}`, {
+        let response = await axios.get(`/data/trasfondos/find/${trasfondoId}`, {
           headers: {
             Authorization: localStorage.getItem("jwt_token"),
           },

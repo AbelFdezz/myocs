@@ -12,7 +12,7 @@ const MensajeBorrarPersonaje = () => {
     useEffect(() => {
         const getData = async () => {
           try {
-            let response = await axios.get(`/personajes/find/${PersonajeId}`, {
+            let response = await axios.get(`/data/personajes/find/${PersonajeId}`, {
               
                 headers: {
                   Authorization: localStorage.getItem("jwt_token")

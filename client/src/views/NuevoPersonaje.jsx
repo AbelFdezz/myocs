@@ -31,7 +31,7 @@ const NuevoPersonaje = () => {
     }
 
     try {
-      let response = await axios.post("/personajes", data, {
+      let response = await axios.post("/data/personajes", data, {
         headers: {
           Authorization: localStorage.getItem("jwt_token"),
         },
@@ -49,7 +49,7 @@ const NuevoPersonaje = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        let response = await axios.get("/juegos", {
+        let response = await axios.get("/data/juegos", {
           headers: {
             Authorization: localStorage.getItem("jwt_token"),
           },

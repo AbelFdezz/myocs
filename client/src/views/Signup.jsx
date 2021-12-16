@@ -47,7 +47,7 @@ const Signup = () => {
       }
     }
     try {
-      const response = await axios.post("usuarios/login", datos, {
+      const response = await axios.post("/data/usuarios/login", datos, {
         headers: {
           Authorization: localStorage.getItem("jwt_token"),
         },

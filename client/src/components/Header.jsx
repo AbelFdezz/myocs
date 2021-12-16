@@ -22,7 +22,7 @@ const Header = () => {
 
 
         try {
-          let response = await axios.get(`/personajes/nombre/${nombre}`, {
+          let response = await axios.get(`/data/personajes/nombre/${nombre}`, {
             headers: {
               Authorization: localStorage.getItem("jwt_token"),
             },

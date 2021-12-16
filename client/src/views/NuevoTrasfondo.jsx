@@ -34,7 +34,7 @@ const NuevoTrasfondo = () => {
           }
         }
         try {
-          let response = await axios.post("/trasfondos", datos,  {
+          let response = await axios.post("/data/trasfondos", datos,  {
             headers: {
               Authorization: localStorage.getItem("jwt_token")
             },

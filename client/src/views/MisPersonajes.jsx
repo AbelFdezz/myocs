@@ -14,7 +14,7 @@ const MisPersonajes = () => {
     const getData = async () => {
       try {
         let response = await axios(
-          "/usuarios/find/misPersonajes",
+          "/data/usuarios/find/misPersonajes",
           {
             headers: {
               Authorization: localStorage.getItem("jwt_token")

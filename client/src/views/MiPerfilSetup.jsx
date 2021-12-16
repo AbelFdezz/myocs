@@ -29,7 +29,7 @@ const MiPerfilSetup = () => {
     }
     try {
       let response = await axios.put(
-        `/usuarios/updateusuario/${UsuarioId}`,
+        `/data/usuarios/updateusuario/${UsuarioId}`,
         datos,
         {
           headers: {

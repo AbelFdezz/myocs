@@ -9,7 +9,7 @@ const MiPerfil = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        let response = await axios("/usuarios/find/miPerfil", {
+        let response = await axios("/data/usuarios/find/miPerfil", {
           headers: {
             Authorization: localStorage.getItem("jwt_token"),
           },

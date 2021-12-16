@@ -30,7 +30,7 @@ const TrasfondoSetup = () => {
     }
     try {
       let response = await axios.put(
-        `/trasfondos/update/${TrasfondoId}`,
+        `/data/trasfondos/update/${TrasfondoId}`,
         datos,
         {
           headers: {
@@ -52,7 +52,7 @@ const TrasfondoSetup = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        let response = await axios.get(`/trasfondos/find/${TrasfondoId}`, {
+        let response = await axios.get(`/data/trasfondos/find/${TrasfondoId}`, {
           headers: {
             Authorization: localStorage.getItem("jwt_token"),
           },
@@ -70,7 +70,7 @@ const TrasfondoSetup = () => {
     event.preventDefault();
 
     try {
-      let response = await axios.get(`/personajes/nombre/${nombre}`, {
+      let response = await axios.get(`/data/personajes/nombre/${nombre}`, {
         headers: {
           Authorization: localStorage.getItem("jwt_token"),
         },

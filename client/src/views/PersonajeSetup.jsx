@@ -44,7 +44,7 @@ const PersonajeSetup = () => {
     }
     try {
       let response = await axios.put(
-        `/personajes/update/${PersonajeId}`,
+        `/data/personajes/update/${PersonajeId}`,
         datos,
         {
           headers: {
@@ -71,7 +71,7 @@ const PersonajeSetup = () => {
     }
     try {
       let response = await axios.put(
-        `/personajes/imagen/update/${PersonajeId}`,
+        `/data/personajes/imagen/update/${PersonajeId}`,
         data,
         {
           headers: {
@@ -92,7 +92,7 @@ const PersonajeSetup = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        let response = await axios.get("/juegos", {
+        let response = await axios.get("/data/juegos", {
           headers: {
             Authorization: localStorage.getItem("jwt_token"),
           },
@@ -109,7 +109,7 @@ const PersonajeSetup = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        let response = await axios.get(`/personajes/find/${PersonajeId}`, {
+        let response = await axios.get(`/data/personajes/find/${PersonajeId}`, {
           
             headers: {
               Authorization: localStorage.getItem("jwt_token")
