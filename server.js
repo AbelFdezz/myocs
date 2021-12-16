@@ -23,18 +23,20 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-app.get("/", (req, res) => {
-  return res.send("Hello World!");
-});
-app.listen(PORT, () => {
-  console.log(`funcionando en el puerto ${PORT}!`);
-});
+
 
 app.use("/data/juegos", require("./routes/juegoRouter")); 
 app.use("/data/usuarios", require("./routes/usuarioRouter"));
 app.use("/data/personajes", require("./routes/personajeRouter"));
 app.use("/data/trasfondos", require("./routes/trasfondoRouter"));
+app.use(express.static(path.join(__dirname, "client", "build")))
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+});
 
+app.listen(PORT, () => {
+  console.log(`funcionando en el puerto ${PORT}!`);
+});
 
 
 
