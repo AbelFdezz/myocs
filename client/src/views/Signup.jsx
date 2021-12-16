@@ -28,7 +28,7 @@ const Signup = () => {
       }
     }
     try {
-      const response = await axios.post("usuarios/signup", datos);
+      const response = await axios.post("/data/usuarios/signup", datos);
 
       if (response.data) alerta();
     } catch (err) {
