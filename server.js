@@ -6,6 +6,7 @@ const PORT = process.env.PORT;
 const mongoose = require("mongoose");
 const user = process.env.user;
 const password = process.env.password;
+const path = require("path")
 
 const uri = `mongodb+srv://${user}:${password}@cluster0.59iqv.mongodb.net/data?retryWrites=true&w=majority`; //guardar en el .env
 
