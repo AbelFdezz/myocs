@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const personajeSchema = new Schema({
-  nombre: { type: String, required: true },
+  nombre: { type: String, required: true, unique: true},
   juego: { type: mongoose.Types.ObjectId, ref: "Juego" },
   detallesJuego: { type: String },
   estado: { type: String },

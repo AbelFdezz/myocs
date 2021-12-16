@@ -72,7 +72,7 @@ const Header = () => {
                   }
                   to="/SobreNosotros"
                 >
-                  Sobre MyOCS
+                  Sobre MyOC
                 </NavLink>
               </Nav>
               <Nav>

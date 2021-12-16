@@ -9,9 +9,8 @@ trasfondoRouter.post("/", checkToken, async (req, res) => {
   try {
     const { titulo, cuerpo, personaje, otrosPersonajes } = req.body;
 
-let usuario = await Propietario.findById(req.usuario.id);
-console.log(usuario)
-console.log(req.body)
+    let usuario = await Propietario.findById(req.usuario.id);
+
     if (!titulo || !cuerpo || !personaje) {
       return res.status(403).json({
         success: false,
@@ -27,14 +26,14 @@ console.log(req.body)
     });
     let miPersonaje = trasfondo.personaje;
 
- let index = usuario.personajes.indexOf(miPersonaje);
- if (index == -1) {
-  console.log(index);
-  return res.status(400).json({
-     success: false,
-   message: "No puedes modificar el trasfondo de un personaje que no es tuyo.",
-       });
-     }
+    let index = usuario.personajes.indexOf(miPersonaje);
+    if (index == -1) {
+      return res.status(400).json({
+        success: false,
+        message:
+          "No puedes modificar el trasfondo de un personaje que no es tuyo.",
+      });
+    }
 
     const newTrasfondo = await trasfondo.save();
 
@@ -64,7 +63,8 @@ console.log(req.body)
 
 trasfondoRouter.get("/", async (req, res) => {
   try {
-    let trasfondos = await Trasfondo.find().populate("personaje", "nombre")
+    let trasfondos = await Trasfondo.find()
+      .populate("personaje", "nombre")
       .populate("otrosPersonajes", "nombre");
 
     return res.json({
@@ -92,13 +92,13 @@ trasfondoRouter.delete("/delete/:id", checkToken, async (req, res) => {
       });
     }
 
-      if (!trasfondoBuscado.propietario.equals(req.usuario.id)) {
+    if (!trasfondoBuscado.propietario.equals(req.usuario.id)) {
       return res.status(400).json({
-         success: false,
-         message: "No puedes borrar algo que no es tuyo. Un poquito de por favor!",
-       });
-     }
-
+        success: false,
+        message:
+          "No puedes borrar algo que no es tuyo. Un poquito de por favor!",
+      });
+    }
 
     let personajeBuscado = await Personaje.findById(trasfondoBuscado.personaje);
 
@@ -142,24 +142,20 @@ trasfondoRouter.put("/update/:id", checkToken, async (req, res) => {
     let usuario = await Propietario.findById(req.usuario.id);
     let elPersonaje = trasfondo.personaje;
     let index = usuario.personajes.indexOf(elPersonaje);
-    
 
-    for (const key in req.body) {  
+    for (const key in req.body) {
       if (req.body[key]) {
-if(key == "otrosPersonajes" && req.body[key].length > 0){
-  trasfondo[key] = [...trasfondo[key], req.body[key]]
-  continue
-}
-if (index == -1) {
-  console.log(index);
-  return res.status(400).json({
-     success: false,
-   message: "No seas enterao, No toques lo que  no es tuyo.",
-       });
-     }
+        if (key == "otrosPersonajes" && req.body[key].length > 0) {
+          trasfondo[key] = [...trasfondo[key], req.body[key]];
+          continue;
+        }
+        if (index == -1) {
+          return res.status(400).json({
+            success: false,
+            message: "No seas enterao, No toques lo que  no es tuyo.",
+          });
+        }
 
-
- 
         trasfondo[key] = req.body[key];
       }
     }
@@ -186,9 +182,8 @@ if (index == -1) {
   }
 });
 
-
 trasfondoRouter.get("/find/:id", async (req, res) => {
-  const {id} = req.params
+  const { id } = req.params;
   try {
     let trasfondo = await Trasfondo.findById(id)
       .populate("personaje", "nombre")
@@ -206,38 +201,5 @@ trasfondoRouter.get("/find/:id", async (req, res) => {
     });
   }
 });
-
-// trasfondoRouter.post("/update/add/:id", checkToken, async (req, res) => {
-//   try {
-//     const { id } = req.params;
-//     let { titulo, cuerpo, personaje, otrosPersonajes } = req.body;
-//     const trasfondo = await Trasfondo.findById(id);
-//     let personajeAdd = await Personaje.findById(otrosPersonajes);
-
-// console.log(personajeAdd)
-
-//  const trasfondoActualizado = await trasfondo.save();
-
-//    personajeAdd.otrosPersonajes.push(trasfondoActualizado);
-
-// // console.log(otrosPersonajes)
-    
-//       await trasfondosArray.save();
-
-
-//     return res.send({
-//       success: true,
-//       message: `El trasfondo se modificó correctamente`,
-//     });
-//   } catch (err) {
-//     console.log(err);
-//     return res.status(400).json({
-//       success: false,
-//       message: err.message,
-//     });
-//   }
-// });
-
-
 
 module.exports = trasfondoRouter;

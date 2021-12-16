@@ -39,7 +39,7 @@ const NuevoPersonaje = () => {
 
       navigate("/MisPersonajes/`${UsuarioId}`")
     } catch (error) {
-      console.log(error.response);
+
       alert(error.data.message)
     }
   };

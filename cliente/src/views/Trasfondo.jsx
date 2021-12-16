@@ -20,7 +20,6 @@ const Trasfondo = () => {
         });
 
         setTrasfondo(response.data.trasfondo);
-        console.log(response.data);
       } catch (err) {
         console.log(err);
       }

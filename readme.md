@@ -54,7 +54,6 @@ Apartado en el que se explicará el concepto de la web, con un botón de reporta
 
 # BACKEND:
 
-
 # Dependencias en uso:
 
 ## Encriptación
@@ -86,5 +85,21 @@ Apartado en el que se explicará el concepto de la web, con un botón de reporta
 ---
 ---
 # FRONTEND:
- ## (En desarrollo...)
+
+# Dependencias en uso:
+
+## Front realizado con React 
+    "react": "^17.0.2",
+
+ ## Peticiones y envío de datos con el backend
+   "axios": "^0.24.0",
+
+## Envío de imágenes al servidor
+    "cloudinary-react": "^1.7.0",
+
+## React Bootstrap para ultimar el diseño
+    "react-bootstrap": "^2.0.2",
+
+## Proxy para proteger y ocultar la dirección del servidor
+        "react-bootstrap": "^2.0.2",
 

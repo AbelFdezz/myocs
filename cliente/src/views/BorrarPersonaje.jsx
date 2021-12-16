@@ -21,7 +21,7 @@ const BorrarPersonaje = () => {
         });
 
         setPersonaje(response.data.Personaje);
-        console.log()
+
       } catch (err) {
         navigate("/BorrarPersonajeFail")
         console.log(err);

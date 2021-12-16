@@ -21,7 +21,7 @@ usuarioRouter.post("/signup", async (req, res) => {
       personajes,
     } = req.body;
 
-    console.log(req.body);
+
 
     if (!nick || !password || !correo) {
       return res.status(403).json({
@@ -218,7 +218,7 @@ usuarioRouter.get("/find/misPersonajes", checkToken, async (req, res) => {
       //populate: { path: "personajes", select: "imagen" },
     });
     arrayPersonajes = misPersonajes.personajes;
-    console.log(arrayPersonajes);
+
 
     return res.json({
       success: true,
@@ -238,7 +238,6 @@ usuarioRouter.get("/find/miPerfil", checkToken, async (req, res) => {
   try {
     const miPerfil = await Usuario.findById(id);
 
-    console.log(miPerfil);
 
     return res.json({
       success: true,

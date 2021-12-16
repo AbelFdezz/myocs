@@ -37,7 +37,6 @@ const MiPerfilSetup = () => {
           },
         }
       );
-      console.log(response);
 
       navigate("/MiPerfil")
     } catch (error) {
