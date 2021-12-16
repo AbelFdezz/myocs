@@ -1,7 +1,7 @@
 node_modules/
 *.env
 /package-lock.json
-/cliente/package-lock.json
+/client/package-lock.json
 /.pnp
 .pnp.js
 

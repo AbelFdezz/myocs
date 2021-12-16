@@ -18,6 +18,8 @@ trasfondoRouter.post("/", checkToken, async (req, res) => {
           "No puedes guardar un trasfondo sin título, o vacío, o sin personaje protagonista",
       });
     }
+
+    
     const trasfondo = new Trasfondo({
       titulo,
       cuerpo,
